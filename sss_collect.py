@@ -6,12 +6,14 @@ SSS（Short Swing Score）用データ取得スクリプト
     python sss_collect.py            # 既定の約100銘柄（11セクター）・5年分
     python sss_collect.py --years 3  # 期間を変える
     python sss_collect.py --codes 7203 6758 8306   # 銘柄を指定
+    python sss_collect.py --earnings # 過去の決算発表日も取得（遅い。ツールの決算回避に使用）
 
 出力: sss_data.json → ツールの「データを読み込む」から選択してください。
 
 注意:
 - yfinance は Yahoo Finance の非公式ライブラリです。個人の研究用途にとどめてください。
 - 株価は分割調整済み・配当は未調整（権利落ちの下落はそのまま残ります）。
+- 分割の履歴を "splits" に保存します。ツールはこれを使って「当時の実際の株価」で100株の購入金額を計算します。
 - 本格運用するときは JPX 公式の J-Quants API への置き換えを推奨します。
 """
 import argparse
@@ -68,13 +70,14 @@ def main():
     ap.add_argument("--years", type=int, default=5)
     ap.add_argument("--codes", nargs="*", help="銘柄コード（省略時は既定リスト）")
     ap.add_argument("--out", default="sss_data.json")
+    ap.add_argument("--earnings", action="store_true", help="過去の決算発表日も取得する")
     args = ap.parse_args()
 
     stocks = {c: DEFAULT_STOCKS.get(c, (c, "その他")) for c in args.codes} if args.codes else DEFAULT_STOCKS
     tickers = [f"{c}.T" for c in stocks] + [f"{BENCH[0]}.T"]
     print(f"{len(tickers)} 銘柄を取得中…（{args.years}年分）")
     df = yf.download(tickers, period=f"{args.years}y", interval="1d",
-                     auto_adjust=False, group_by="ticker", progress=True, threads=True)
+                     auto_adjust=False, actions=True, group_by="ticker", progress=True, threads=True)
 
     bench = df[f"{BENCH[0]}.T"].dropna(subset=["Close"])
     dates = list(bench.index)
@@ -83,6 +86,7 @@ def main():
         "source": "yfinance",
         "dates": [d.strftime("%Y-%m-%d") for d in dates],
         "benchmark": {"code": BENCH[0], "name": BENCH[1],
+                      "o": [clean(x, 2) for x in bench["Open"]],
                       "c": [clean(x, 2) for x in bench["Close"]]},
         "stocks": [],
     }
@@ -95,8 +99,22 @@ def main():
         if s["Close"].notna().sum() < 120:
             print(f"  データ不足のため除外: {code} {name}")
             continue
+        splits = []
+        if "Stock Splits" in s.columns:
+            for d, r in s["Stock Splits"].items():
+                if r is not None and not math.isnan(r) and r not in (0, 1):
+                    splits.append([d.strftime("%Y-%m-%d"), float(r)])
+        earnings = []
+        if args.earnings:
+            try:
+                ed = yf.Ticker(t).get_earnings_dates(limit=40)
+                if ed is not None:
+                    earnings = sorted({d.strftime("%Y-%m-%d") for d in ed.index})
+            except Exception as e:  # 取得できない銘柄もある
+                print(f"  決算日の取得失敗: {code} {name}（{e.__class__.__name__}）")
         out["stocks"].append({
-            "code": code, "name": name, "sector": sector,
+            "code": code, "name": name, "sector": sector, "splits": splits,
+            **({"earnings": earnings} if args.earnings else {}),
             "o": [clean(x) for x in s["Open"]], "h": [clean(x) for x in s["High"]],
             "l": [clean(x) for x in s["Low"]], "c": [clean(x) for x in s["Close"]],
             "v": [None if (v is None or math.isnan(v)) else int(v) for v in s["Volume"]],

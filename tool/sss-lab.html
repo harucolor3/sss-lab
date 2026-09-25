@@ -195,7 +195,7 @@ td.best{font-weight:700}
           <label for="sl">損切り −%<input id="sl" type="number" min="0.5" max="20" step="0.5" value="2.5"></label>
           <label for="hold">最長保有日数<input id="hold" type="number" min="1" max="20" step="1" value="5"></label>
           <label for="cost">手数料・滑り %<input id="cost" type="number" min="0" max="1" step="0.05" value="0.1"></label>
-          <label for="size">1取引の金額（円）<input id="size" type="number" min="50000" max="1000000" step="50000" value="200000"></label>
+          <label for="size">円換算に使う金額（円）<input id="size" type="number" min="50000" max="1000000" step="50000" value="200000"></label>
           <label for="split">検証期間の開始日<select id="split"></select></label>
         </div>
         <p class="small muted" style="margin:0">点数がついた日の翌朝の始値で買い、利益確定・損切りの値に先に届いた方で売ります。どちらにも届かなければ最長保有日数の終値で売ります。同じ日に両方届いた場合は損切りを優先します（厳しめの想定）。</p>
@@ -218,15 +218,18 @@ td.best{font-weight:700}
       <section class="panel" id="replay">
         <div class="sechead"><h2>リプレイ（直近データで疑似運用）</h2><span class="small muted">開始日より前のデータだけで学習し、開始日からは1日ずつ未知の相場として運用</span></div>
         <div class="rules rp-set">
+          <label for="rpCapital">運用資金（軍資金・円）<input id="rpCapital" type="number" min="100000" max="100000000" step="100000" value="600000"></label>
+          <label for="rpRisk">1取引の許容損失（円）<input id="rpRisk" type="number" min="0" max="100000" step="500" value="5000"></label>
           <label for="rpStart">運用の開始日<select id="rpStart"></select></label>
           <label for="rpPos">同時に持つ銘柄の上限<input id="rpPos" type="number" min="1" max="5" step="1" value="2"></label>
           <label for="rpBudget">1銘柄の上限金額（円）<input id="rpBudget" type="number" min="50000" max="1000000" step="50000" value="300000"></label>
-          <label for="rpDay">1日の損失上限（円）<input id="rpDay" type="number" min="0" max="200000" step="1000" value="10000"></label>
-          <label for="rpMonth">1か月の損失上限（円）<input id="rpMonth" type="number" min="0" max="500000" step="5000" value="50000"></label>
+          <label for="rpDay">1日の損失の停止基準（円）<input id="rpDay" type="number" min="0" max="200000" step="1000" value="10000"></label>
+          <label for="rpMonth">1か月の損失の停止基準（円）<input id="rpMonth" type="number" min="0" max="500000" step="5000" value="50000"></label>
           <label class="chk" for="rpFri"><span><input id="rpFri" type="checkbox" checked> 金曜は持ち越さず手仕舞う</span></label>
         </div>
+        <p id="rpDataNote" class="small muted" style="margin:0"></p>
         <div id="rpSummary" class="rp-sum"></div>
-        <div class="legend"><span><i style="background:var(--accent)"></i>SSSで運用（確定＋含み損益）</span><span><i style="background:var(--faint)"></i>TOPIX連動ETFを60万円分持っていた場合</span></div>
+        <div class="legend"><span><i style="background:var(--accent)"></i>SSSで運用（確定＋含み損益）</span><span><i style="background:var(--faint)"></i><span id="rpBenchLabel">TOPIX連動ETFを60万円分持っていた場合</span></span></div>
         <div class="chartbox" style="height:200px"><canvas id="rpEq" aria-label="リプレイの損益推移" role="img"></canvas></div>
         <div class="stepper">
           <button id="rpPrev" type="button" aria-label="1日戻る">◀ 1日戻る</button>
@@ -235,7 +238,7 @@ td.best{font-weight:700}
           <input id="rpSlider" type="range" min="0" max="0" value="0" aria-label="表示する日">
         </div>
         <div id="rpDayView"></div>
-        <p class="small muted" style="margin:0">ルール：前日の終値で点数が基準以上の銘柄を、翌朝の始値で100株単位で買います（上限金額で100株買えない銘柄は見送り）。損切り・利確・最長保有日数は左の「売買ルール」と同じです。1日の損失が上限に達したら翌日は新規購入を止め、1か月の損失が上限に達したらその月は新規購入を止めます。</p>
+        <p class="small muted" style="margin:0">ルール：前日の終値で点数が基準以上の銘柄を、翌朝の始値で100株単位で買います。株数は「損切りまで下がったときの損失＋コストが許容損失以内」「1銘柄の上限金額以内」「運用資金の残り〔資金＋確定損益−保有中の買付額〕以内」の3つを満たす最大数です。決算日データがあれば、保有予定期間に決算がある銘柄は買わず、保有中は決算前日の終値で手仕舞います。比較用に、同じ資金・ルールで「基準点以上の候補からランダムに選ぶ」運用を100回行い、SSSの順位（ランキングに意味があるか）を表示します。損切り・利確・最長保有日数は左の「売買ルール」と同じです。1日の損失が停止基準に達したら翌日は新規購入を止め、1か月の損失が停止基準に達したらその月は新規購入を止めます（どちらも損失の絶対上限ではありません）。</p>
       </section>
 
       <section class="panel">
@@ -252,7 +255,7 @@ td.best{font-weight:700}
       </section>
 
       <section class="panel">
-        <div class="sechead"><h2>累積損益（円）</h2><span class="small muted">1取引あたりの金額で換算</span></div>
+        <div class="sechead"><h2>累積損益（円）</h2><span class="small muted">「円換算に使う金額」で1取引を換算</span></div>
         <div class="legend"><span><i style="background:var(--faint)"></i>学習期間</span><span><i style="background:var(--accent)"></i>検証期間</span></div>
         <div class="chartbox"><canvas id="eq" aria-label="累積損益のグラフ" role="img"></canvas></div>
       </section>
@@ -386,6 +389,13 @@ function prepare(data){
   dayStart[T]=n;
   R={n,st,tt,sec,F,flags,raw,dayStart,T,ret:new Float32Array(n)};
   D=data;
+  // 分割履歴 → 当時の実際の株価に戻す倍率、決算日 → 営業日インデックス
+  const idxOf=d=>{ let lo=0,hi=T; while(lo<hi){const mid=(lo+hi)>>1; if(data.dates[mid]<d) lo=mid+1; else hi=mid;} return lo; };
+  D.hasSplits=data.stocks.some(s=>Array.isArray(s.splits)); D.hasEarn=data.stocks.some(s=>Array.isArray(s.earnings)&&s.earnings.length);
+  for(const s of data.stocks){
+    if(Array.isArray(s.splits)&&s.splits.length){ s.rawF=new Float64Array(T).fill(1); for(const [d,r] of s.splits){ const i=idxOf(d); for(let t=0;t<i&&t<T;t++) s.rawF[t]*=r; } } else s.rawF=null;
+    if(Array.isArray(s.earnings)&&s.earnings.length){ s.earnDay=new Uint8Array(T); for(const d of s.earnings){ const i=idxOf(d); if(i<T) s.earnDay[i]=1; } } else s.earnDay=null;
+  }
 }
 
 function simulate(){
@@ -394,6 +404,7 @@ function simulate(){
   for(let k=0;k<n;k++){
     const s=D.stocks[st[k]], t=tt[k], e=t+1;
     if(e+H-1>=R.T||s.o[e]==null){ret[k]=NaN;continue;}
+    if(s.earnDay){ let hit=false; for(let d=e;d<e+H;d++) if(s.earnDay[d]){hit=true;break;} if(hit){ret[k]=NaN;continue;} }
     const en=s.o[e], stop=en*(1-sl), take=en*(1+tp); let ex=null;
     for(let d=e;d<e+H;d++){
       const o=s.o[d],h=s.h[d],l=s.l[d],c=s.c[d];
@@ -672,28 +683,52 @@ function fillReplayStart(){
   if(!html) html=`<option value="${def}">${D.dates[def]}</option>`;
   sel.innerHTML=html; let best=null,bd=1e9; for(const o of sel.options){const d=Math.abs(+o.value-def); if(d<bd){bd=d;best=o.value}} sel.value=best;
 }
+function mulberry(seed){ return ()=>{ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+function earnIn(si,a,b){ const e=D.stocks[si].earnDay; if(!e) return false; for(let t=a;t<=b&&t<R.T;t++) if(e[t]) return true; return false; }
 function runReplay(thr,K){
-  const t0=+$('rpStart').value, T=R.T;
-  const maxPos=Math.max(1,+$('rpPos').value|0), budget=+$('rpBudget').value||300000;
+  const t0=+$('rpStart').value;
+  const H=Math.max(1,+$('hold').value|0);
+  const L=learn(60,Math.max(61,t0-H-1),K); const WS=makeWS(MODE,L); // 開始日以降の値動きを学習に使わないよう、保有日数分手前で区切る
+  const byScore=t=>{ const out=[]; for(let k=R.dayStart[t];k<R.dayStart[t+1];k++){ const s=scoreAt(k,WS,P); if(s>=thr) out.push({k,si:R.st[k],s}); } return out.sort((a,b)=>b.s-a.s); };
+  const main=replayCore(t0,byScore,true);
+  // 同じ資金・ルールで「基準点以上の候補をランダムな順で選ぶ」戦略を100回
+  const finals=[];
+  for(let r=0;r<100;r++){
+    const rnd=mulberry(12345+r*7919);
+    const byRandom=t=>{ const out=[]; for(let k=R.dayStart[t];k<R.dayStart[t+1];k++){ const sc=scoreAt(k,WS,P); if(sc>=thr) out.push({k,si:R.st[k],s:sc,r:rnd()}); } return out.sort((a,b)=>a.r-b.r); };
+    finals.push(replayCore(t0,byRandom,false).final);
+  }
+  finals.sort((a,b)=>a-b);
+  main.rand={median:finals[50],p5:finals[5],p95:finals[94],rankTop:Math.round(finals.filter(v=>v>=main.final).length)};
+  main.learned=!!L;
+  return main;
+}
+function replayCore(t0,pick,keepLog){
+  const T=R.T;
+  const maxPos=Math.max(1,+$('rpPos').value|0), budget=+$('rpBudget').value||300000, capital=Math.max(10000,+$('rpCapital').value||600000);
+  const riskYen=Math.max(0,+$('rpRisk').value||0);
   const dayLim=+$('rpDay').value||0, monLim=+$('rpMonth').value||0, fri=$('rpFri').checked;
   const tp=+$('tp').value/100, sl=+$('sl').value/100, H=Math.max(1,+$('hold').value|0), cost=+$('cost').value/100;
-  const L=learn(60,Math.max(61,t0-H-1),K); const WS=makeWS(MODE,L); // 開始日以降の値動きを学習に使わないよう、保有日数分手前で区切る
-  const byDay=t=>{ const out=[]; for(let k=R.dayStart[t];k<R.dayStart[t+1];k++){ const s=scoreAt(k,WS,P); if(s>=thr) out.push({k,si:R.st[k],s}); } return out.sort((a,b)=>b.s-a.s); };
-  let pos=[], pending=byDay(t0-1), realized=0, monthPnL=0, month=D.dates[t0].slice(0,7), pauseDay=false, pauseMonth=null;
+  const eligible=(list,t,pos,log)=>list.filter(c=>{ if(pos.some(p=>p.si===c.si)) return false; if(earnIn(c.si,t+1,t+H)){ if(log) log.earnSkip.push(c.si); return false; } return true; });
+  let pos=[], pending=eligible(pick(t0-1),t0-1,[],null), realized=0, monthPnL=0, month=D.dates[t0].slice(0,7), pauseDay=false, pauseMonth=null;
   const days=[], eq=[]; let trades=0, wins=0, peak=0, maxDD=0;
   for(let t=t0;t<T;t++){
     const m=D.dates[t].slice(0,7); if(m!==month){month=m; monthPnL=0;}
-    const log={t,opened:[],closed:[],skipped:[],holding:[],cands:[],day:0,paused:''};
-    const paused = pauseDay ? '前日に1日の損失上限に達したため、今日は新規購入なし' : (pauseMonth===m ? '今月の損失上限に達したため、今月は新規購入なし' : '');
+    const log={t,opened:[],closed:[],skipped:[],holding:[],cands:[],day:0,paused:'',earnSkip:[]};
+    const paused = pauseDay ? '前日に1日の損失の停止基準に達したため、今日は新規購入なし' : (pauseMonth===m ? '今月の損失の停止基準に達したため、今月は新規購入なし' : '');
     log.paused=paused;
     if(!paused){
       for(const c of pending){
         if(pos.length>=maxPos) break;
         if(pos.some(p=>p.si===c.si)) continue;
         const st=D.stocks[c.si], op=st.o[t]; if(op==null) continue;
-        const sh=Math.floor(budget/(op*100))*100;
-        if(sh<=0){ log.skipped.push({si:c.si,price:op}); continue; }
-        const p={si:c.si,entryT:t,entry:op,shares:sh,stop:op*(1-sl),take:op*(1+tp),score:c.s};
+        const F=st.rawF?st.rawF[t]:1, raw=op*F;  // 当時の実際の株価（分割前）
+        const invested=pos.reduce((a,p)=>a+p.entry*p.F*p.shares,0), cash=capital+realized-invested;
+        const byRisk=riskYen>0?Math.floor(riskYen/(raw*(sl+cost)*100))*100:Infinity;
+        const byBudget=Math.floor(budget/(raw*100))*100, byCash=Math.floor(Math.max(cash,0)/(raw*100))*100;
+        const sh=Math.min(byRisk,byBudget,byCash);
+        if(sh<=0){ const why=byRisk<=0?'許容損失':byBudget<=0?'1銘柄の上限金額':'資金不足'; log.skipped.push({si:c.si,price:raw,why}); continue; }
+        const p={si:c.si,entryT:t,entry:op,F,shares:sh,stop:op*(1-sl),take:op*(1+tp),score:c.s,risk:raw*(sl+cost)*sh};
         pos.push(p); log.opened.push(p);
       }
     }
@@ -706,22 +741,23 @@ function runReplay(thr,K){
       if(ex==null){ if(l<=p.stop){ex=p.stop;why='損切り';} else if(h>=p.take){ex=p.take;why='利確';} }
       if(ex==null&&t-p.entryT+1>=H){ex=c;why='保有期限';}
       if(ex==null&&fri&&isWeekEnd(t)){ex=c;why='週末の手仕舞い';}
-      if(ex!=null){ const pnl=(ex-p.entry)*p.shares-cost*p.entry*p.shares; log.closed.push({...p,exit:ex,why,pnl}); log.day+=pnl; trades++; if(pnl>0)wins++; }
+      if(ex==null&&earnIn(p.si,t+1,t+1)){ex=c;why='決算前の手仕舞い';}
+      if(ex!=null){ const pnl=((ex-p.entry)*p.shares-cost*p.entry*p.shares)*p.F; log.closed.push({...p,exit:ex,why,pnl}); log.day+=pnl; trades++; if(pnl>0)wins++; }
       else still.push(p);
     }
     pos=still; realized+=log.day; monthPnL+=log.day;
-    let unreal=0; for(const p of pos){ const c=D.stocks[p.si].c[t]; if(c!=null){ const u=(c-p.entry)*p.shares; unreal+=u; log.holding.push({...p,close:c,u}); } }
+    let unreal=0; for(const p of pos){ const c=D.stocks[p.si].c[t]; if(c!=null){ const u=(c-p.entry)*p.shares*p.F; unreal+=u; log.holding.push({...p,close:c,u}); } }
     const e=realized+unreal; eq.push(e); peak=Math.max(peak,e); maxDD=Math.min(maxDD,e-peak);
     log.realized=realized; log.equity=e; log.monthPnL=monthPnL;
     pauseDay = dayLim>0 && log.day<=-dayLim;
     if(monLim>0 && monthPnL<=-monLim) pauseMonth=m;
-    pending=byDay(t).filter(c=>!pos.some(p=>p.si===c.si));
+    pending=eligible(pick(t),t,pos,log);
     log.cands=pending.slice(0,5);
-    days.push(log);
+    if(keepLog) days.push(log); else days.push({t});
   }
   const B=D.benchmark.c, bStart=B[t0-1];
-  const bench=days.map(d=>B[d.t]!=null&&bStart?600000*(B[d.t]/bStart-1):null);
-  return {t0,days,eq,bench,trades,wins,maxDD,final:eq[eq.length-1]||0,benchFinal:bench[bench.length-1]||0,learned:!!L};
+  const bench=days.map(d=>B[d.t]!=null&&bStart?capital*(B[d.t]/bStart-1):null);
+  return {t0,capital,days,eq,bench,trades,wins,maxDD,final:eq[eq.length-1]||0,benchFinal:bench[bench.length-1]||0};
 }
 function drawReplayChart(){
   const cv=$('rpEq'), box=cv.parentElement, dpr=window.devicePixelRatio||1;
@@ -748,10 +784,10 @@ function renderReplayDay(){
   $('rpSlider').max=RP.days.length-1; $('rpSlider').value=rpView;
   const t=d.t, date=D.dates[t];
   const tbl=(head,rows,empty)=>rows.length?`<div class="tablewrap"><table><thead><tr>${head.map((h,i)=>`<th${i===0?'':''}>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`:`<div class="empty">${empty}</div>`;
-  const closed=tbl(['銘柄','理由','売値','損益'],d.closed.map(p=>`<tr><td class="name">${nameOf(p.si)}</td><td class="name" style="text-align:right">${p.why}</td><td>${p.exit.toFixed(1)}</td><td class="${cls(p.pnl)}">${yen(p.pnl)}</td></tr>`),'決済なし');
-  const opened=tbl(['銘柄','買値','株数','損切り','利確'],d.opened.map(p=>`<tr><td class="name">${nameOf(p.si)}</td><td>${p.entry.toFixed(1)}</td><td>${p.shares}</td><td class="neg">${p.stop.toFixed(1)}</td><td class="pos">${p.take.toFixed(1)}</td></tr>`),d.paused?'新規購入を停止中':'新規購入なし')
-    +(d.skipped.length?`<div class="empty">予算オーバーで見送り：${d.skipped.map(x=>`${nameOf(x.si)}（100株 ${Math.round(x.price*100).toLocaleString('ja-JP')}円）`).join('、')}</div>`:'');
-  const holding=tbl(['銘柄','買値','終値','含み損益'],d.holding.map(p=>`<tr><td class="name">${nameOf(p.si)}</td><td>${p.entry.toFixed(1)}</td><td>${p.close.toFixed(1)}</td><td class="${cls(p.u)}">${yen(p.u)}</td></tr>`),'保有なし');
+  const closed=tbl(['銘柄','理由','売値','損益'],d.closed.map(p=>`<tr><td class="name">${nameOf(p.si)}</td><td class="name" style="text-align:right">${p.why}</td><td>${(p.exit*p.F).toFixed(1)}</td><td class="${cls(p.pnl)}">${yen(p.pnl)}</td></tr>`),'決済なし');
+  const opened=tbl(['銘柄','買値','株数','損切り','利確','想定最大損失'],d.opened.map(p=>`<tr><td class="name">${nameOf(p.si)}</td><td>${(p.entry*p.F).toFixed(1)}</td><td>${p.shares}</td><td class="neg">${(p.stop*p.F).toFixed(1)}</td><td class="pos">${(p.take*p.F).toFixed(1)}</td><td>${Math.round(p.risk).toLocaleString('ja-JP')}円</td></tr>`),d.paused?'新規購入を停止中':'新規購入なし')
+    +(d.skipped.length?`<div class="empty">見送り：${d.skipped.map(x=>`${nameOf(x.si)}（100株 ${Math.round(x.price*100).toLocaleString('ja-JP')}円・${x.why}）`).join('、')}</div>`:'');
+  const holding=tbl(['銘柄','買値','終値','含み損益'],d.holding.map(p=>`<tr><td class="name">${nameOf(p.si)}</td><td>${(p.entry*p.F).toFixed(1)}</td><td>${(p.close*p.F).toFixed(1)}</td><td class="${cls(p.u)}">${yen(p.u)}</td></tr>`),'保有なし');
   const cands=tbl(['銘柄','業種','点数'],d.cands.map(c=>`<tr><td class="name">${nameOf(c.si)}</td><td class="name" style="text-align:right">${SECTORS[R.sec[c.k]]}</td><td>${c.s.toFixed(0)}</td></tr>`),'基準点以上の銘柄なし');
   $('rpDayView').innerHTML=`
     <div class="dayhead"><span class="d">${date}（${WD[dow(t)]}）</span>
@@ -769,19 +805,24 @@ function renderReplayDay(){
   drawReplayChart();
 }
 function renderReplaySummary(){
+  $('rpBenchLabel').textContent=`TOPIX連動ETFを${(RP.capital/10000).toLocaleString('ja-JP')}万円分持っていた場合`;
   const wr=RP.trades?(RP.wins/RP.trades*100).toFixed(1)+'%':'—';
   const item=(k,v,c='')=>`<div><dt>${k}</dt><dd class="${c}">${v}</dd></div>`;
+  const rs=RP.rand, rk=rs?Math.max(1,Math.round(rs.rankTop)):0;
   $('rpSummary').innerHTML=`<dl style="display:contents">
     ${item('運用日数',`${RP.days.length}営業日`)}
     ${item('最終損益（含み込み）',yen(RP.final),cls(RP.final))}
-    ${item('TOPIXを60万円分',yen(RP.benchFinal),cls(RP.benchFinal))}
+    ${item('資金に対する損益率',pct(RP.final/RP.capital),cls(RP.final))}
+    ${item(`TOPIXを${(RP.capital/10000).toLocaleString('ja-JP')}万円分`,yen(RP.benchFinal),cls(RP.benchFinal))}
+    ${rs?item('75点以上からランダム（100回）の中央値',yen(rs.median),cls(rs.median)):''}
+    ${rs?item('SSSの順位（ランダム100回中）',`上位 ${rk}%`,rk<=5?'pos':''):''}
     ${item('取引数 / 勝率',`${RP.trades}回 / ${wr}`)}
     ${item('最大の落ち込み',yen(RP.maxDD),RP.maxDD<0?'neg':'')}
     ${item('重み',MODES[MODE]+(MODE!=='manual'&&!RP.learned?'（学習不可）':''))}</dl>`;
 }
 function stopPlay(){ if(rpTimer){clearInterval(rpTimer);rpTimer=null;} $('rpPlay').textContent='▶ 再生'; }
 function bindReplay(){
-  ['rpStart','rpPos','rpBudget','rpDay','rpMonth','rpFri'].forEach(id=>$(id).addEventListener('input',()=>{stopPlay();rpView=-1;schedule();}));
+  ['rpCapital','rpRisk','rpStart','rpPos','rpBudget','rpDay','rpMonth','rpFri'].forEach(id=>$(id).addEventListener('input',()=>{stopPlay();rpView=-1;schedule();}));
   $('rpPrev').onclick=()=>{stopPlay(); rpView=Math.max(0,rpView-1); renderReplayDay();};
   $('rpNext').onclick=()=>{stopPlay(); rpView=Math.min(RP.days.length-1,rpView+1); renderReplayDay();};
   $('rpSlider').addEventListener('input',e=>{stopPlay(); rpView=+e.target.value; renderReplayDay();});
@@ -826,6 +867,10 @@ function load(data,isDemo){
   $('srcChip').textContent=isDemo?'デモデータ':`実データ ${D.stocks.length}銘柄・${SECTORS.length}セクター・${D.dates[0]}〜${D.dates[D.dates.length-1]}`;
   $('demoNote').hidden=!isDemo;
   if(!isDemo&&!data.stocks.some(s=>s.sector)) { $('demoNote').hidden=false; $('demoNote').textContent='このファイルにはセクター情報がありません。最新の sss_collect.py でデータを作り直すと、セクター別の学習が使えます。'; }
+  const parts=[];
+  parts.push(D.hasSplits?'分割履歴あり（リプレイの株数・金額は当時の実際の株価で計算）':'分割履歴なし（リプレイの株数・金額は現在基準の株価。古い期間ほど不正確。最新の sss_collect.py で取り直してください）');
+  parts.push(D.hasEarn?'決算日あり（決算をまたぐ売買を除外）':'決算日なし（決算をまたぐ売買を除外できません。sss_collect.py --earnings で取得できます）');
+  $('rpDataNote').textContent=isDemo?'':parts.join('／');
   schedule();
 }
 function readFile(file){
