@@ -1,0 +1,19 @@
+{
+  "_note": "検証中は変更しないこと。変更したら start_date を変更日に更新し、records/ を別フォルダに退避する。",
+  "start_date": "2026-09-28",
+  "weights": [0, 30, 0, -15, 15, 40],
+  "weights_order": ["トレンド", "対市場", "出来高", "5日騰落", "安定性", "押し目"],
+  "penalties": [15, 20, 10, 15],
+  "threshold": 75,
+  "rules": {
+    "take_profit": 0.05,
+    "stop_loss": 0.025,
+    "max_hold_days": 5,
+    "cost": 0.001,
+    "max_positions": 2,
+    "budget_per_stock": 300000,
+    "daily_loss_limit": 10000,
+    "monthly_loss_limit": 50000,
+    "exit_on_week_end": true
+  }
+}

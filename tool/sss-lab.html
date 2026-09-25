@@ -146,7 +146,7 @@ td.best{font-weight:700}
   <header class="top">
     <div>
       <h1>SSSスコア研究室</h1>
-      <p>5つの要素の重みを手で決めるか、過去データから学習させて（全体共通・セクター別）、「その点数以上で買っていたらどうだったか」を計算します。学習に使っていない期間でも通用するかを確かめるための道具です。</p>
+      <p>6つの要素（マイナスの配点も可）の重みを手で決めるか、過去データから学習させて（全体共通・セクター別）、「その点数以上で買っていたらどうだったか」を計算します。学習に使っていない期間でも通用するかを確かめるための道具です。</p>
     </div>
     <div class="datasrc">
       <span id="srcChip" class="chip demo">デモデータ</span>
@@ -170,13 +170,14 @@ td.best{font-weight:700}
       </div>
 
       <div class="sec" id="manualSec">
-        <div class="sechead"><h2>手動の重み（配点）</h2><span id="wsum" class="small sum-ok num">合計 100</span></div>
+        <div class="sechead"><h2>手動の重み（配点）</h2><span id="wsum" class="small sum-ok num">絶対値の合計 100</span></div>
         <div id="weights"></div>
         <div class="btnrow">
-          <button id="presetExpert" type="button">専門家案 25/25/20/15/15</button>
-          <button id="presetEqual" type="button">均等 20×5</button>
+          <button id="presetExpert" type="button">専門家案</button>
+          <button id="presetOshime" type="button">押し目型</button>
+          <button id="presetEqual" type="button">均等</button>
         </div>
-        <p class="small muted" style="margin:0">合計が100でなくても、100点満点に換算して計算します。</p>
+        <p class="small muted" style="margin:0">マイナスの配点は「その要素を満たさないほど点が入る」という意味です（例：5日騰落をマイナスにすると、直近で上がっていない株ほど高得点）。合計に関係なく0〜100点に換算します。</p>
       </div>
 
       <div class="sec">
@@ -246,7 +247,7 @@ td.best{font-weight:700}
 
       <section class="panel">
         <div class="sechead"><h2>学習した重み</h2><span class="small muted">学習期間のデータから計算</span></div>
-        <p class="small muted" style="margin:0">各要素を満たしたときに、その後の損益がどれだけ良くなったかを回帰分析（過去データから関係の強さを求める統計の方法）で測り、配点にしました。損益を悪くしていた要素は0点になります。</p>
+        <p class="small muted" style="margin:0">各要素を満たしたときに、その後の損益がどれだけ良くなったかを回帰分析（過去データから関係の強さを求める統計の方法）で測り、配点にしました。損益を悪くしていた要素はマイナスの配点になります（絶対値の合計が100）。</p>
         <div class="tablewrap"><table id="learned"></table></div>
       </section>
 
@@ -287,7 +288,9 @@ const FACTORS = [
   {key:'vol',   name:'出来高の増加', short:'出来高', hint:'当日の出来高 ÷ 過去20日平均。2倍以上で満点、0.8倍未満で0。'},
   {key:'mom',   name:'5日モメンタム', short:'5日騰落', hint:'5日間の上昇率。+3〜7%で満点。上がりすぎ（+12%以上）は低い点数。'},
   {key:'stab',  name:'値動きの安定性', short:'安定性', hint:'ATR(14日)÷株価。1.5%以下で満点、3.5%超で0。荒い銘柄を減点。'},
+  {key:'pull',  name:'押し目', short:'押し目', hint:'25日線が上向きの中での一時的な下げ。5日騰落が−1〜−6%で満点、0〜−1%で半分、−6%より深い下げは3割。'},
 ];
+const NF=FACTORS.length;
 const PENALTIES = [
   {key:'surge', name:'急騰しすぎ', desc:'5日で+20%以上', def:15},
   {key:'thin',  name:'売買が少ない', desc:'20日平均の売買代金が10億円未満', def:20},
@@ -300,12 +303,12 @@ const MODE_HINT={
   global:'学習期間のデータから計算した配点を、すべての銘柄に共通で使います。',
   sector:'セクターごとに学習した配点を使います。データが少ないセクターは全体の配点に寄せます。'
 };
-const PRESET_EXPERT=[25,25,20,15,15], PRESET_EQUAL=[20,20,20,20,20];
+const PRESET_EXPERT=[25,25,20,15,15,0], PRESET_OSHIME=[0,30,0,-15,15,40], PRESET_EQUAL=[20,20,20,20,20,0];
 const $=id=>document.getElementById(id);
 
 let W=[...PRESET_EXPERT], P=PENALTIES.map(p=>p.def), MODE='manual';
 try{const s=JSON.parse(localStorage.getItem('sss-settings')||'null');
-  if(s&&s.W&&s.W.length===5){W=s.W; if(s.P&&s.P.length===4)P=s.P; if(MODES[s.mode])MODE=s.mode; if(s.K!=null)$('shrinkK').value=s.K;}}catch(e){}
+  if(s&&s.W&&s.W.length===NF){W=s.W; if(s.P&&s.P.length===4)P=s.P; if(MODES[s.mode])MODE=s.mode; if(s.K!=null)$('shrinkK').value=s.K;}}catch(e){}
 function saveSettings(){try{localStorage.setItem('sss-settings',JSON.stringify({W,P,mode:MODE,K:+$('shrinkK').value}))}catch(e){}}
 
 // ---------- demo data (fictional) ----------
@@ -343,7 +346,7 @@ function prepare(data){
   SECTORS=[...new Set(data.stocks.map(s=>s.sector||'その他'))];
   const secOfStock=data.stocks.map(s=>SECTORS.indexOf(s.sector||'その他'));
   const cap=T*S;
-  const st=new Uint16Array(cap), tt=new Uint16Array(cap), sec=new Uint8Array(cap), F=[0,1,2,3,4].map(()=>new Float32Array(cap)), flags=new Uint8Array(cap);
+  const st=new Uint16Array(cap), tt=new Uint16Array(cap), sec=new Uint8Array(cap), F=FACTORS.map(()=>new Float32Array(cap)), flags=new Uint8Array(cap);
   const raw={rel:new Float32Array(cap),vr:new Float32Array(cap),mom:new Float32Array(cap),atr:new Float32Array(cap)};
   let n=0; const dayStart=new Int32Array(T+1);
   const ma=(c,k,i)=>{let sum=0;for(let j=i-k+1;j<=i;j++){if(c[j]==null)return NaN;sum+=c[j]}return sum/k};
@@ -368,6 +371,8 @@ function prepare(data){
       F[2][n]=vr<0.8?0:vr<1.2?0.25:vr<1.5?0.5:vr<2?0.75:1;
       F[3][n]=mom<=-0.03?0:mom<0?0.2:mom<0.03?0.533:mom<0.07?1:mom<0.12?0.667:0.2;
       F[4][n]=atr<=0.015?1:atr<=0.025?0.67:atr<=0.035?0.33:0;
+      const up25=ma25>ma25p;
+      F[5][n]=!up25?0:mom<=-0.06?0.3:mom<=-0.01?1:mom<0?0.5:0;
       let fl=0;
       if(mom>=0.20) fl|=1;
       if(tv/vn<1e9) fl|=2;
@@ -412,29 +417,29 @@ function solve(A,b){ // Gaussian elimination, A: n×n array of arrays
   }
   return M.map((r,i)=>r[n]/r[i]);
 }
-function coefToWeights(b){
-  const w=b.slice(1).map(x=>Math.max(0,x)); const s=w.reduce((a,c)=>a+c,0);
-  if(s<=0) return null;
+function coefToWeights(b){ // 符号つき：絶対値の合計を100に
+  const w=b.slice(1); const s=w.reduce((a,c)=>a+Math.abs(c),0);
+  if(!(s>0)) return null;
   return w.map(x=>x/s*100);
 }
 function learn(t0,t1,K){
-  const nS=SECTORS.length, Z=()=>Array.from({length:6},()=>new Float64Array(6));
-  const A=Array.from({length:nS},Z), c=Array.from({length:nS},()=>new Float64Array(6)), cnt=new Int32Array(nS);
-  const x=new Float64Array(6); x[0]=1;
+  const P1=NF+1, nS=SECTORS.length, Z=()=>Array.from({length:P1},()=>new Float64Array(P1));
+  const A=Array.from({length:nS},Z), c=Array.from({length:nS},()=>new Float64Array(P1)), cnt=new Int32Array(nS);
+  const x=new Float64Array(P1); x[0]=1;
   for(let k=R.dayStart[t0];k<R.dayStart[t1];k++){
     let y=R.ret[k]; if(isNaN(y)) continue; y=Math.max(-0.15,Math.min(0.15,y));
-    const s=R.sec[k]; for(let i=0;i<5;i++) x[i+1]=R.F[i][k];
+    const s=R.sec[k]; for(let i=0;i<NF;i++) x[i+1]=R.F[i][k];
     const As=A[s], cs=c[s];
-    for(let i=0;i<6;i++){ cs[i]+=x[i]*y; const xi=x[i], Ai=As[i]; for(let j=0;j<6;j++) Ai[j]+=xi*x[j]; }
+    for(let i=0;i<P1;i++){ cs[i]+=x[i]*y; const xi=x[i], Ai=As[i]; for(let j=0;j<P1;j++) Ai[j]+=xi*x[j]; }
     cnt[s]++;
   }
   const N=cnt.reduce((a,b)=>a+b,0);
   if(N<200) return null;
-  const Ag=Z(), cg=new Float64Array(6);
-  for(let s=0;s<nS;s++) for(let i=0;i<6;i++){ cg[i]+=c[s][i]; for(let j=0;j<6;j++) Ag[i][j]+=A[s][i][j]; }
+  const Ag=Z(), cg=new Float64Array(P1);
+  for(let s=0;s<nS;s++) for(let i=0;i<P1;i++){ cg[i]+=c[s][i]; for(let j=0;j<P1;j++) Ag[i][j]+=A[s][i][j]; }
   const ridge=1e-3*N; const Agr=Ag.map((r,i)=>Array.from(r,(v,j)=>v+(i===j&&i>0?ridge:0)));
   const bg=solve(Agr,Array.from(cg)); if(!bg) return null;
-  const wg=coefToWeights(bg)||[20,20,20,20,20];
+  const wg=coefToWeights(bg)||PRESET_EQUAL;
   const Sg=Ag.map(r=>Array.from(r,v=>v/N)); // average second moment
   const sec=SECTORS.map((name,s)=>{
     const n=cnt[s];
@@ -447,19 +452,21 @@ function learn(t0,t1,K){
   return {N,global:{w:wg,b:bg},sec};
 }
 function makeWS(mode,L){
-  const nS=SECTORS.length, w=new Float32Array(nS*5), sum=new Float32Array(nS);
+  // 点数 = (Σ重み×要素 − マイナス重みの合計) ÷ (プラス合計 − マイナス合計) × 100 → 0〜100点
+  const nS=SECTORS.length, w=new Float32Array(nS*NF), lo=new Float32Array(nS), span=new Float32Array(nS);
   for(let s=0;s<nS;s++){
     const v= mode==='manual'||!L ? W : mode==='global' ? L.global.w : L.sec[s].w;
-    for(let i=0;i<5;i++) w[s*5+i]=v[i];
-    sum[s]=v.reduce((a,b)=>a+b,0)||1;
+    let neg=0,pos=0; for(let i=0;i<NF;i++){ w[s*NF+i]=v[i]; if(v[i]<0)neg+=v[i]; else pos+=v[i]; }
+    lo[s]=neg; span[s]=(pos-neg)||1;
   }
-  return {w,sum};
+  return {w,lo,span};
 }
 
 // ---------- scoring & evaluation ----------
 function scoreAt(k,WS,pen){
-  const F=R.F, s0=R.sec[k]*5, w=WS.w;
-  let s=(w[s0]*F[0][k]+w[s0+1]*F[1][k]+w[s0+2]*F[2][k]+w[s0+3]*F[3][k]+w[s0+4]*F[4][k])*100/WS.sum[R.sec[k]];
+  const F=R.F, sc=R.sec[k], s0=sc*NF, w=WS.w;
+  let raw=0; for(let i=0;i<NF;i++) raw+=w[s0+i]*F[i][k];
+  let s=(raw-WS.lo[sc])*100/WS.span[sc];
   const f=R.flags[k]; if(f){ if(f&1)s-=pen[0]; if(f&2)s-=pen[1]; if(f&4)s-=pen[2]; if(f&8)s-=pen[3]; }
   return s;
 }
@@ -486,7 +493,7 @@ function baseline(t0,t1){ let s=0,c=0; for(let k=R.dayStart[t0];k<R.dayStart[t1]
 function buildControls(){
   $('weights').innerHTML=FACTORS.map((f,i)=>`
     <div class="w-row"><label for="w${i}">${f.name}</label><span class="val" id="wv${i}">${W[i]}</span>
-    <input type="range" id="w${i}" min="0" max="50" step="5" value="${W[i]}" aria-describedby="wh${i}">
+    <input type="range" id="w${i}" min="-50" max="50" step="5" value="${W[i]}" aria-describedby="wh${i}">
     <span class="hint" id="wh${i}">${f.hint}</span></div>`).join('');
   $('penalties').innerHTML=PENALTIES.map((p,i)=>`
     <div class="pen-row"><label for="p${i}">${p.name}<small>${p.desc}</small></label>
@@ -498,8 +505,9 @@ function buildControls(){
   document.querySelectorAll('input[name=mode]').forEach(r=>{ r.checked=r.value===MODE; r.addEventListener('change',()=>{MODE=r.value;schedule();}); });
   $('presetExpert').onclick=()=>setWeights(PRESET_EXPERT);
   $('presetEqual').onclick=()=>setWeights(PRESET_EQUAL);
+  $('presetOshime').onclick=()=>setWeights(PRESET_OSHIME);
   bindReplay();
-  $('applyLearned').onclick=()=>{ if(!LEARN) return; setWeights(LEARN.global.w.map(v=>Math.min(50,Math.round(v/5)*5))); MODE='manual'; $('mManual').checked=true; schedule(); };
+  $('applyLearned').onclick=()=>{ if(!LEARN) return; setWeights(LEARN.global.w.map(v=>Math.max(-50,Math.min(50,Math.round(v/5)*5)))); MODE='manual'; $('mManual').checked=true; schedule(); };
 }
 function setWeights(arr){ W=[...arr]; W.forEach((v,i)=>{$('w'+i).value=v;$('wv'+i).textContent=v}); schedule(); }
 function fillSplit(){
@@ -578,7 +586,7 @@ function bandTable(WS,t0,split,t1){
 
 function learnedTable(L){
   if(!L){ $('learned').innerHTML='<tbody><tr><td>学習期間のデータが少なすぎて学習できません。検証期間の開始日を後ろにずらしてください。</td></tr></tbody>'; return; }
-  const row=(name,n,w,ratio,note)=>`<tr><td class="name">${name}</td><td>${n.toLocaleString('ja-JP')}</td>${w.map(v=>`<td>${Math.round(v)}</td>`).join('')}<td>${ratio==null?'—':Math.round(ratio*100)+'%'}</td><td class="name small muted" style="text-align:left">${note||''}</td></tr>`;
+  const row=(name,n,w,ratio,note)=>`<tr><td class="name">${name}</td><td>${n.toLocaleString('ja-JP')}</td>${w.map(v=>`<td class="${Math.round(v)>0?'pos':Math.round(v)<0?'neg':''}">${Math.round(v)>0?'+':''}${Math.round(v)}</td>`).join('')}<td>${ratio==null?'—':Math.round(ratio*100)+'%'}</td><td class="name small muted" style="text-align:left">${note||''}</td></tr>`;
   $('learned').innerHTML=`<thead><tr><th>対象</th><th>学習件数</th>${FACTORS.map(f=>`<th>${f.short}</th>`).join('')}<th>全体に寄せた割合</th><th style="text-align:left">メモ</th></tr></thead><tbody>`+
     row('全体（共通）',L.N,L.global.w,null,'')+
     L.sec.map(s=>row(s.name,s.n,s.w,s.ratio,s.fallback?'有効な要素がなく全体の配点を使用':'')).join('')+'</tbody>';
@@ -592,8 +600,8 @@ function walkForward(thr,perDay,K){
   const out=[];
   for(const Y of years){
     if(Y.t0-60<240) continue;
-    const L=learn(60,Y.t0,K); if(!L) continue;
-    const r={y:Y.y, part:Y.t1-Y.t0<200};
+    const L=learn(60,Math.max(61,Y.t0-(+$('hold').value|0)-1),K); if(!L) continue;
+    const r={y:Y.y, part:Y.t1-Y.t0<200, base:baseline(Y.t0,Y.t1)};
     r.manual=select(manualWS,P,thr,perDay,Y.t0,Y.t1,false);
     r.global=select(makeWS('global',L),P,thr,perDay,Y.t0,Y.t1,false);
     r.sector=select(makeWS('sector',L),P,thr,perDay,Y.t0,Y.t1,false);
@@ -607,24 +615,26 @@ function wfTable(rows){
   const tot={manual:{cnt:0,sum:0},global:{cnt:0,sum:0},sector:{cnt:0,sum:0}};
   const wins={manual:0,global:0,sector:0};
   const cell=(r,bestKey,key)=>r.cnt?`<td>${r.cnt}</td><td class="${cls(r.exp)} ${key===bestKey?'best':''}">${pct(r.exp)}</td>`:'<td>0</td><td>—</td>';
+  const beat={manual:0,global:0,sector:0}; let bs=0,bc=0;
   const body=rows.map(r=>{
-    keys.forEach(k=>{tot[k].cnt+=r[k].cnt; tot[k].sum+=r[k].sum;});
+    keys.forEach(k=>{tot[k].cnt+=r[k].cnt; tot[k].sum+=r[k].sum; if(r[k].cnt>=10&&r[k].exp>r.base) beat[k]++;});
+    bs+=r.base; bc++;
     const valid=keys.filter(k=>r[k].cnt>=10); const bestKey=valid.sort((a,b)=>r[b].exp-r[a].exp)[0];
     if(bestKey) wins[bestKey]++;
-    return `<tr><td>${r.y}年${r.part?'（途中まで）':''}</td>${keys.map(k=>cell(r[k],bestKey,k)).join('')}</tr>`;
+    return `<tr><td>${r.y}年${r.part?'（途中まで）':''}</td><td class="${cls(r.base)}">${pct(r.base)}</td>${keys.map(k=>cell(r[k],bestKey,k)).join('')}</tr>`;
   }).join('');
   const T=k=>({cnt:tot[k].cnt,exp:tot[k].cnt?tot[k].sum/tot[k].cnt:0});
   const totBest=keys.filter(k=>tot[k].cnt>=30).sort((a,b)=>T(b).exp-T(a).exp)[0];
-  $('wf').innerHTML=`<thead><tr><th rowspan="2">検証した年</th><th colspan="2">手動</th><th colspan="2">学習・全体</th><th colspan="2">学習・セクター別</th></tr>
+  $('wf').innerHTML=`<thead><tr><th rowspan="2">検証した年</th><th rowspan="2">全銘柄を<br>毎日買った場合</th><th colspan="2">手動</th><th colspan="2">学習・全体</th><th colspan="2">学習・セクター別</th></tr>
     <tr><th>取引数</th><th>期待値</th><th>取引数</th><th>期待値</th><th>取引数</th><th>期待値</th></tr></thead><tbody>${body}
-    <tr><td><strong>合計</strong></td>${keys.map(k=>cell(T(k),totBest,k)).join('')}</tr></tbody>`;
+    <tr><td><strong>合計</strong></td><td>${pct(bs/Math.max(bc,1))}</td>${keys.map(k=>cell(T(k),totBest,k)).join('')}</tr></tbody>`;
   const n=rows.length;
   let v;
   if(!totBest) v='取引数が少なく判断できません。「買い候補にする点数」を下げてください。';
   else {
-    v=`合計で最も良いのは「${MODES[totBest]}」（期待値 ${pct(T(totBest).exp)}）。各年で1位になった回数は 手動 ${wins.manual}回・学習・全体 ${wins.global}回・学習・セクター別 ${wins.sector}回（${n}年中）。`;
+    v=`合計で最も良いのは「${MODES[totBest]}」（期待値 ${pct(T(totBest).exp)}）。「全銘柄を毎日買った場合」に勝った年数は 手動 ${beat.manual}・学習・全体 ${beat.global}・学習・セクター別 ${beat.sector}（${n}年中）。`;
+    if(beat[totBest]<n) v+=' 毎年勝てていない方式は、たまたまの可能性を残しています。';
     if(T(totBest).exp<=0) v+=' ただし期待値がプラスの方式がありません。要素や売買ルールそのものの見直しが必要です。';
-    else if(totBest==='sector'&&wins.sector<=n/2) v+=' 合計では1位ですが、年ごとの勝ち数が半分以下なので、たまたまの可能性があります。';
   }
   $('wfVerdict').textContent=v;
 }
@@ -634,12 +644,13 @@ function rankTable(WS){
   const thr=+$('thr').value;
   const rows=[]; for(let k=R.dayStart[t];k<R.dayStart[t+1];k++) rows.push({k,s:scoreAt(k,WS,P)});
   rows.sort((a,b)=>b.s-a.s);
-  const colors=['var(--accent)','var(--up)','var(--warn)','var(--down)','var(--faint)'];
+  const colors=['var(--accent)','var(--up)','var(--warn)','var(--down)','var(--faint)','var(--ink)'];
   $('rankTitle').textContent=`最新日のランキング（${D.dates[t]}終値時点）`;
   $('rank').innerHTML=`<thead><tr><th>銘柄</th><th style="text-align:left">セクター</th><th>点数</th><th style="text-align:left">内訳</th><th>対TOPIX 20日</th><th>出来高倍率</th><th>5日騰落</th><th>ATR/株価</th><th style="text-align:left">状態</th></tr></thead><tbody>`+
     rows.map(({k,s})=>{
-      const st=D.stocks[R.st[k]]; const f=R.flags[k], s0=R.sec[k]*5, sum=WS.sum[R.sec[k]];
-      const bars=FACTORS.map((_,i)=>`<span style="width:${(WS.w[s0+i]*R.F[i][k]/sum*100).toFixed(1)}%;background:${colors[i]}" title="${FACTORS[i].name}"></span>`).join('');
+      const st=D.stocks[R.st[k]]; const f=R.flags[k], sc=R.sec[k], s0=sc*NF, span=WS.span[sc];
+      // マイナスの重みは「その要素を満たさないほど点が入る」ので (1−要素) で表示
+      const bars=FACTORS.map((_,i)=>{const w=WS.w[s0+i], x=R.F[i][k]; const pts=w>=0?w*x:(-w)*(1-x); return `<span style="width:${(pts/span*100).toFixed(1)}%;background:${colors[i]}" title="${FACTORS[i].name}${w<0?'（逆向き）':''}"></span>`}).join('');
       const pens=PENALTIES.filter((p,i)=>f&(1<<i)).map(p=>`<span class="chip pen">${p.name}</span>`).join(' ');
       const hit=s>=thr;
       return `<tr class="${hit?'hit':''}"><td class="name">${st.code} ${st.name}</td><td class="name" style="text-align:left">${SECTORS[R.sec[k]]}</td><td><strong>${s.toFixed(0)}</strong></td>
@@ -785,14 +796,14 @@ function bindReplay(){
 
 function render(){
   if(simDirty){simulate();simDirty=false;}
-  const wsum=W.reduce((a,b)=>a+b,0);
-  $('wsum').textContent='合計 '+wsum; $('wsum').className='small num '+(wsum===100?'sum-ok':'sum-bad');
+  const wsum=W.reduce((a,b)=>a+Math.abs(b),0);
+  $('wsum').textContent='絶対値の合計 '+wsum; $('wsum').className='small num '+(wsum>0?'sum-ok':'sum-bad');
   $('modeHint').textContent=MODE_HINT[MODE];
   $('manualSec').classList.toggle('dim',MODE!=='manual');
   const thr=+$('thr').value, perDay=Math.max(1,+$('perDay').value|0), size=+$('size').value||200000;
   const K=Math.max(0,+$('shrinkK').value||0);
   const split=+$('split').value, T=R.T;
-  LEARN=learn(60,split,K);
+  LEARN=learn(60,Math.max(61,split-(+$('hold').value|0)-1),K);
   const WS=makeWS(MODE,LEARN);
   const tr=select(WS,P,thr,perDay,60,split,true), te=select(WS,P,thr,perDay,split,T,true);
   periodCard($('pTrain'),'学習期間',tr,baseline(60,split),60,split,size);
