@@ -51,6 +51,5 @@
     }
   },
   "track_name": "押し目型（トラックA）",
-  "records_dir": "records",
-  "universe_file": "universe.json"
+  "records_dir": "records"
 }

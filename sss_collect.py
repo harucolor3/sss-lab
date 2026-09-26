@@ -94,6 +94,26 @@ EXTRA_STOCKS = {c: (n, sec) for sec, d in EXTRA_SECTOR_MAP.items() for c, n in d
 BENCH = ("1306", "TOPIX連動ETF（TOPIXの代わり）")
 
 
+def repair_glitches(vals, label=""):
+    """1日だけ値が1/10や10倍になる取得エラー（例: 1306 の 2026-03-30/31）を前後の値から補正する"""
+    v = list(vals)
+    for i in range(1, len(v)):
+        if v[i] is None or v[i - 1] is None or v[i - 1] == 0:
+            continue
+        r = v[i] / v[i - 1]
+        if r < 0.2 or r > 5:
+            # 次の日に元の水準へ戻る場合だけ、エラーとみなして補正（本当の暴落・分割とは区別）
+            j = i
+            while j < len(v) and v[j] is not None and not (0.5 < v[j] / v[i - 1] < 2):
+                j += 1
+            if j < len(v) and j - i <= 5:
+                f = round(v[i - 1] / v[i])
+                for k in range(i, j):
+                    v[k] = v[k] * f
+                print(f"  取得エラーを補正: {label} {i}日目から{j - i}日分（×{f}）")
+    return v
+
+
 def clean(x, nd=1):
     if x is None or (isinstance(x, float) and math.isnan(x)):
         return None
@@ -130,8 +150,8 @@ def main():
         "source": "yfinance",
         "dates": [d.strftime("%Y-%m-%d") for d in dates],
         "benchmark": {"code": BENCH[0], "name": BENCH[1],
-                      "o": [clean(x, 2) for x in bench["Open"]],
-                      "c": [clean(x, 2) for x in bench["Close"]]},
+                      "o": repair_glitches([clean(x, 2) for x in bench["Open"]], "1306 始値"),
+                      "c": repair_glitches([clean(x, 2) for x in bench["Close"]], "1306 終値")},
         "stocks": [],
     }
     for code, (name, sector) in stocks.items():

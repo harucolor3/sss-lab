@@ -873,10 +873,21 @@ function load(data,isDemo){
   $('rpDataNote').textContent=isDemo?'':parts.join('／');
   schedule();
 }
+function showLoadMsg(msg){ $('demoNote').hidden=false; $('demoNote').textContent=msg; }
 function readFile(file){
+  if(!file) return;
+  showLoadMsg(`「${file.name}」（${(file.size/1e6).toFixed(1)}MB）を読み込んでいます…`);
   const fr=new FileReader();
-  fr.onload=()=>{ try{ const d=JSON.parse(fr.result); if(!d.dates||!d.stocks||!d.benchmark) throw 0; load(d,false);}catch(e){
-    $('demoNote').hidden=false; $('demoNote').textContent='ファイルを読み込めませんでした。sss_collect.py で作った sss_data.json を選んでください。'; } };
+  fr.onerror=()=>showLoadMsg(`「${file.name}」を開けませんでした。アプリ内で開けない場合は、ブラウザ（Chromeなど）で claude.ai を開いて試してください。`);
+  fr.onload=()=>{
+    let d;
+    try{ d=JSON.parse(String(fr.result).replace(/\bNaN\b|-?\bInfinity\b/g,'null')); }
+    catch(e){ showLoadMsg(`「${file.name}」はJSONとして読めませんでした（${e.message}）。sss_collect.py で作った sss_data*.json を選んでください。`); return; }
+    const miss=['dates','stocks','benchmark'].filter(k=>!d||!d[k]);
+    if(miss.length){ showLoadMsg(`「${file.name}」は株価データではありません（${miss.join('・')} がありません）。universe.json や paper_config.json ではなく、sss_data.json / sss_data_ext.json を選んでください。`); return; }
+    if(!d.stocks.length||d.dates.length<120){ showLoadMsg(`「${file.name}」はデータが少なすぎます（${d.stocks.length}銘柄・${d.dates.length}営業日）。120営業日以上必要です。`); return; }
+    setTimeout(()=>{ try{ load(d,false); }catch(e){ showLoadMsg(`計算中にエラーが起きました（${e.message}）。このメッセージをそのまま送ってください。`); } },20);
+  };
   fr.readAsText(file);
 }
 $('fileIn').addEventListener('change',e=>{ if(e.target.files[0]) readFile(e.target.files[0]); });
