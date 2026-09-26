@@ -113,7 +113,8 @@ def main():
                     help="extended = 既定96銘柄＋追加候補（直近60日の平均売買代金10億円以上だけ残す）")
     args = ap.parse_args()
 
-    stocks = {c: DEFAULT_STOCKS.get(c, (c, "その他")) for c in args.codes} if args.codes else DEFAULT_STOCKS
+    ALL = {**DEFAULT_STOCKS, **EXTRA_STOCKS}
+    stocks = {c: ALL.get(c, (c, "その他")) for c in args.codes} if args.codes else DEFAULT_STOCKS
     if args.universe == "extended" and not args.codes:
         stocks = {**DEFAULT_STOCKS, **EXTRA_STOCKS}
     tickers = [f"{c}.T" for c in stocks] + [f"{BENCH[0]}.T"]
@@ -168,7 +169,7 @@ def main():
                 print(f"  決算日の取得失敗: {code} {name}（{e.__class__.__name__}）")
         out["stocks"].append({
             "code": code, "name": name, "sector": sector, "splits": splits,
-            **({"added": True} if code in EXTRA_STOCKS and args.universe == "extended" else {}),
+            **({"added": True} if code in EXTRA_STOCKS else {}),
             **({"earnings": earnings} if args.earnings else {}),
             "o": [clean(x) for x in s["Open"]], "h": [clean(x) for x in s["High"]],
             "l": [clean(x) for x in s["Low"]], "c": [clean(x) for x in s["Close"]],

@@ -1,9 +1,28 @@
 {
   "_note": "検証中は変更しないこと。変更したら start_date を変更日に更新し、records/ を別フォルダに退避する。v1.1(2026-09-25): 株数を損失額ベースに、決算回避を追加（重み・閾値・利確/損切り・保有日数は変更なし）",
   "start_date": "2026-09-28",
-  "weights": [0, 30, 0, -15, 15, 40],
-  "weights_order": ["トレンド", "対市場", "出来高", "5日騰落", "安定性", "押し目"],
-  "penalties": [15, 20, 10, 15],
+  "weights": [
+    0,
+    30,
+    0,
+    -15,
+    15,
+    40
+  ],
+  "weights_order": [
+    "トレンド",
+    "対市場",
+    "出来高",
+    "5日騰落",
+    "安定性",
+    "押し目"
+  ],
+  "penalties": [
+    15,
+    20,
+    10,
+    15
+  ],
   "threshold": 75,
   "rules": {
     "take_profit": 0.05,
@@ -21,7 +40,16 @@
   },
   "evaluation": {
     "_note": "全シグナル=75点以上の全銘柄（1日の数制限なし）。決済済み=紙上売買で決済した回数。21営業日=1か月として計算",
-    "interim": {"months": 3, "signals": 300},
-    "full": {"months": 6, "signals": 500, "closed_trades": 100}
-  }
+    "interim": {
+      "months": 3,
+      "signals": 300
+    },
+    "full": {
+      "months": 6,
+      "signals": 500,
+      "closed_trades": 100
+    }
+  },
+  "track_name": "押し目型（トラックA）",
+  "records_dir": "records"
 }

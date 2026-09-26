@@ -38,9 +38,21 @@ JST = dt.timezone(dt.timedelta(hours=9))
 FN = ["トレンド", "対市場", "出来高", "5日騰落", "安定性", "押し目"]
 
 
-def load_config():
-    with open(os.path.join(HERE, "paper_config.json"), encoding="utf-8") as f:
-        return json.load(f)
+def universe_codes(cfg):
+    """設定の universe_file（固定した対象銘柄の一覧）があればそのコードを返す。無ければ None（既定の96銘柄）"""
+    fn = cfg.get("universe_file")
+    if not fn or not os.path.exists(os.path.join(HERE, fn)):
+        return None
+    return json.load(open(os.path.join(HERE, fn), encoding="utf-8"))["codes"]
+
+
+def load_config(name="paper_config.json"):
+    """設定を読み込み、記録フォルダ（records_dir）を切り替える。トラックごとに設定ファイルと記録フォルダを分ける"""
+    global REC
+    with open(os.path.join(HERE, name), encoding="utf-8") as f:
+        cfg = json.load(f)
+    REC = os.path.join(HERE, cfg.get("records_dir", "records"))
+    return cfg
 
 
 # ---------------- 要素の計算（ツール sss-lab.html と同じ定義） ----------------
@@ -93,11 +105,16 @@ def features(data):
     return R
 
 
-def score(R, w, pen):
-    w = np.array(w, float)
-    lo, hi = np.minimum(w, 0).sum(), np.maximum(w, 0).sum()
-    raw = R[[f"f{i}" for i in range(6)]].values @ w
-    sc = (raw - lo) / ((hi - lo) or 1) * 100
+def score(R, w, pen, sector_weights=None):
+    """点数（0〜100点−減点）。sector_weights={業種: 配点6つ} があれば業種ごとの配点を使う（無い業種は w）"""
+    X = R[[f"f{i}" for i in range(6)]].values
+    if sector_weights:
+        Wm = np.array([sector_weights.get(sec, w) for sec in R.sector.values], float)
+    else:
+        Wm = np.tile(np.array(w, float), (len(R), 1))
+    lo, hi = np.minimum(Wm, 0).sum(1), np.maximum(Wm, 0).sum(1)
+    span = np.where(hi - lo == 0, 1, hi - lo)
+    sc = ((X * Wm).sum(1) - lo) / span * 100
     fl = R.fl.values
     for j in range(4):
         sc = sc - pen[j] * ((fl >> j) & 1)
@@ -348,7 +365,7 @@ def step(data, R, t, state, cfg, earn=None, picker=None, pool="threshold"):
 
     # 4) 今日の終値で点数を計算し、翌日の注文予定を作る（決算回避を適用）
     today = R[R.t == t].copy()
-    today["score"] = score(today, cfg["weights"], cfg["penalties"])
+    today["score"] = score(today, cfg["weights"], cfg["penalties"], cfg.get("sector_weights"))
     today = today.sort_values("score", ascending=False)
     held = {p["code"] for p in state["positions"]}
     base = today[~today.code.isin(held)]
@@ -577,7 +594,7 @@ def report(data, cfg, n_random=200):
     rec = load_recorded_scores(dates, t0)
     src = "当日の記録"
     if rec is None:
-        rec = R[R.t >= t0].copy(); rec["score"] = score(rec, cfg["weights"], cfg["penalties"]); src = "再計算（当日の記録なし）"
+        rec = R[R.t >= t0].copy(); rec["score"] = score(rec, cfg["weights"], cfg["penalties"], cfg.get("sector_weights")); src = "再計算（当日の記録なし）"
     code2si = {s["code"]: i for i, s in enumerate(data["stocks"])}
     rec = rec[rec.code.isin(code2si)].copy()
     rec["si"] = rec.code.map(code2si)
@@ -661,29 +678,38 @@ def main():
     ap.add_argument("--report", action="store_true")
     ap.add_argument("--check-earnings", action="store_true")
     ap.add_argument("--force", action="store_true", help="時刻チェックを無視")
+    ap.add_argument("--config", default="paper_config.json", help="トラックの設定ファイル（例: paper_config_sector.json）")
+    ap.add_argument("--reuse-data", action="store_true", help="株価データを取り直さず、直前に取得した sss_data.json を使う（2本目のトラック用）")
     a = ap.parse_args()
-    cfg = load_config()
+    cfg = load_config(a.config)
+    print(f"トラック: {cfg.get('track_name', a.config)}（記録先 {os.path.relpath(REC, HERE)}/）")
     data_fp = os.path.join(HERE, "sss_data.json")
     cache_fp = os.path.join(REC, "earnings_cache.json")
     today_jst = dt.datetime.now(JST).date().isoformat()
 
     if a.check_earnings:
-        from sss_collect import DEFAULT_STOCKS
-        earn = fetch_next_earnings(list(DEFAULT_STOCKS), today_jst)
+        from sss_collect import DEFAULT_STOCKS, EXTRA_STOCKS
+        DEFAULT_STOCKS = {**DEFAULT_STOCKS, **EXTRA_STOCKS}
+        codes = universe_codes(cfg) or list(DEFAULT_STOCKS)
+        earn = fetch_next_earnings(codes, today_jst)
         ok = {c: d for c, d in earn.items() if d}
         print(f"決算日を取得できた銘柄: {len(ok)} / {len(earn)}")
         for c, d in sorted(ok.items(), key=lambda x: x[1])[:15]:
-            print(f"  {c} {DEFAULT_STOCKS[c][0]}: {d}")
+            print(f"  {c} {DEFAULT_STOCKS.get(c, (c,))[0]}: {d}")
         miss = [c for c, d in earn.items() if not d]
         if miss:
             print("取得できなかった銘柄:", " ".join(miss))
         return
 
-    if not a.no_fetch and not a.report:
+    if not a.no_fetch and not a.report and not a.reuse_data:
         now = dt.datetime.now(JST)
         if not a.force and now.hour * 60 + now.minute < 15 * 60 + 45:
             sys.exit(f"まだ取引時間中の可能性があります（{now:%H:%M} JST）。15:45以降に実行してください。")
-        subprocess.run([sys.executable, os.path.join(HERE, "sss_collect.py"), "--years", "1", "--out", data_fp], check=True)
+        cmd = [sys.executable, os.path.join(HERE, "sss_collect.py"), "--years", "1", "--out", data_fp]
+        codes = universe_codes(cfg)
+        if codes:
+            cmd += ["--codes", *codes]
+        subprocess.run(cmd, check=True)
     with open(data_fp, encoding="utf-8") as f:
         data = json.load(f)
     if a.report:
