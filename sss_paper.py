@@ -231,6 +231,12 @@ def position_size(price, cfg, cash):
     return min(by_risk, by_budget, by_cash), (by_risk, by_budget, by_cash)
 
 
+def raw_factor(stock, t):
+    """過去期間の検証用：分割調整済み株価を当時の実際の株価に戻す倍率（rawF があるときだけ。通常運用では常に1）"""
+    f = stock.get("rawF")
+    return f[t] if f else 1.0
+
+
 def step(data, R, t, state, cfg, earn=None, picker=None, pool="threshold"):
     """日付インデックス t の1日分を処理し、報告用の dict を返す。
     earn: {code: 次回決算日} その日の引け後に分かっている情報。
@@ -250,7 +256,7 @@ def step(data, R, t, state, cfg, earn=None, picker=None, pool="threshold"):
 
     # 0) 株式分割の補正（データは分割調整済みなので、保有中に分割があると買値とずれる）
     for p in state["positions"]:
-        if p["entry_date"] in dates:
+        if p["entry_date"] in dates and "F" not in p:
             adj = S[code2si[p["code"]]]["o"][dates.index(p["entry_date"])]
             if adj and abs(adj / p["entry"] - 1) > 0.02:
                 f = adj / p["entry"]
@@ -275,17 +281,20 @@ def step(data, R, t, state, cfg, earn=None, picker=None, pool="threshold"):
             op = S[si]["o"][t]
             if op is None:
                 continue
-            invested = sum(p["entry"] * p["shares"] for p in state["positions"])
+            F = raw_factor(S[si], t)
+            invested = sum(p["entry"] * p.get("F", 1.0) * p["shares"] for p in state["positions"])
             cash = r["capital"] + state["realized"] - invested
-            shares, parts = position_size(op, cfg, cash)
+            shares, parts = position_size(op * F, cfg, cash)
             if shares <= 0:
                 why = ["許容損失", "1銘柄の上限金額", "資金不足"][int(np.argmin(parts))]
-                log["skipped"].append({"code": od["code"], "name": od["name"], "price100": round(op * 100), "why": why})
+                log["skipped"].append({"code": od["code"], "name": od["name"], "price100": round(op * F * 100), "why": why})
                 continue
             p = {"code": od["code"], "name": od["name"], "sector": od["sector"], "score": od["score"],
                  "entry_date": date, "entry": op, "shares": shares,
                  "stop": op * (1 - sl), "take": op * (1 + tp),
-                 "risk": round((op * sl + op * cost) * shares)}
+                 "risk": round((op * sl + op * cost) * F * shares)}
+            if F != 1.0:
+                p["F"] = F
             state["positions"].append(p)
             log["opened"].append(p)
 
@@ -318,7 +327,7 @@ def step(data, R, t, state, cfg, earn=None, picker=None, pool="threshold"):
             if d not in (None, "SAFE") and d <= busday(date, 1):
                 ex, why = c, f"決算前の手仕舞い（決算 {d}）"
         if ex is not None:
-            pnl = (ex - p["entry"]) * p["shares"] - cost * p["entry"] * p["shares"]
+            pnl = ((ex - p["entry"]) * p["shares"] - cost * p["entry"] * p["shares"]) * p.get("F", 1.0)
             log["closed"].append({**p, "exit_date": date, "exit": ex, "why": why, "pnl": pnl,
                                   "ret": ex / p["entry"] - 1 - cost})
             log["day_pnl"] += pnl
@@ -330,7 +339,7 @@ def step(data, R, t, state, cfg, earn=None, picker=None, pool="threshold"):
     for p in still:
         c = S[code2si[p["code"]]]["c"][t]
         if c is not None:
-            log["holding"].append({**p, "close": c, "unreal": (c - p["entry"]) * p["shares"]})
+            log["holding"].append({**p, "close": c, "unreal": (c - p["entry"]) * p["shares"] * p.get("F", 1.0)})
 
     # 3) 損失上限
     state["pause_day"] = r["daily_loss_limit"] > 0 and log["day_pnl"] <= -r["daily_loss_limit"]
@@ -359,12 +368,13 @@ def step(data, R, t, state, cfg, earn=None, picker=None, pool="threshold"):
                      "mom": x.mom, "rel": x.rel, "close": x.close} for x in today.head(10).itertuples()]
     log["pending"] = pend
     # 表示用：今日の終値で「翌朝買えそうか」を見積もる（実際の株数は翌朝の始値で決まる）
-    invested = sum(p["entry"] * p["shares"] for p in state["positions"])
+    invested = sum(p["entry"] * p.get("F", 1.0) * p["shares"] for p in state["positions"])
     cash = r["capital"] + state["realized"] - invested
     free = r["max_positions"] - len(state["positions"])
     view, n_ok = [], 0
     for od in pend:
         c = S[code2si[od["code"]]]["c"][t]
+        c = c * raw_factor(S[code2si[od["code"]]], t) if c else c
         sh, parts = position_size(c, cfg, cash) if c else (0, (0, 0, 0))
         ok = sh > 0
         why = "" if ok else ["許容損失", "1銘柄の上限金額", "資金不足"][int(np.argmin(parts))]
@@ -637,9 +647,11 @@ def report(data, cfg, n_random=200):
     b_open = B.get("o"); t_first = t0 + 1
     if t_first < len(dates):
         base_px = b_open[t_first] if b_open and b_open[t_first] else B["c"][t0]
-        print(f"  ④ TOPIX連動ETFに{cap:,}円（{dates[t_first]}の{'始値' if b_open else '前日終値'}から）: {yen(cap*(B['c'][-1]/base_px-1))}")
+        topix = cap * (B['c'][-1] / base_px - 1)
+        print(f"  ④ TOPIXの買い持ち（{cap:,}円を{dates[t_first]}の{'始値' if b_open else '前日終値'}で買って持ち続ける）: {yen(topix)}"
+              f"　SSS {yen(sss_pnl)} → {'PASS（手間とリスクに見合う）' if sss_pnl > topix else 'FAIL（持ち続ける方が良かった）'}")
     print("※配当は0円として計算（権利落ちの下落のみ損失に含む保守的な評価）")
-    print("判定: 研究評価は信頼区間の下限がプラスで「優位性あり」の候補。実資金へ進むには実運用評価①上位5%以内・②下限がプラス・③PASS がすべて必要")
+    print("判定: 研究評価は信頼区間の下限がプラスで「優位性あり」の候補。実資金へ進むには実運用評価①上位5%以内・②下限がプラス・③PASS・④TOPIXの買い持ちに勝つ がすべて必要")
 
 
 # ---------------- main ----------------
