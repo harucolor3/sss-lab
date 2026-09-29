@@ -1,18 +1,12 @@
 {
- "last_date": "2026-09-28",
+ "last_date": "2026-09-29",
  "positions": [],
  "pending": [
   {
    "code": "285A",
    "name": "キオクシアHD",
    "sector": "半導体",
-   "score": 86.0
-  },
-  {
-   "code": "7013",
-   "name": "IHI",
-   "sector": "機械・重工",
-   "score": 81.7
+   "score": 80.0
   }
  ],
  "realized": 0.0,

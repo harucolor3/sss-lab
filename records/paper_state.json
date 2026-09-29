@@ -1,30 +1,61 @@
 {
- "last_date": "2026-09-28",
- "positions": [],
- "pending": [
+ "last_date": "2026-09-29",
+ "positions": [
   {
    "code": "5020",
    "name": "ENEOS",
    "sector": "資源・素材",
-   "score": 90.0
+   "score": 90.0,
+   "entry_date": "2026-09-29",
+   "entry": 1398.0,
+   "shares": 100,
+   "stop": 1363.05,
+   "take": 1467.9,
+   "risk": 3635
   },
   {
    "code": "9432",
    "name": "NTT",
    "sector": "通信・IT",
-   "score": 86.0
+   "score": 86.0,
+   "entry_date": "2026-09-29",
+   "entry": 172.1,
+   "shares": 1100,
+   "stop": 167.79749999999999,
+   "take": 180.705,
+   "risk": 4922
+  }
+ ],
+ "pending": [
+  {
+   "code": "6702",
+   "name": "富士通",
+   "sector": "電機・電子部品",
+   "score": 87.0
   },
   {
-   "code": "8001",
-   "name": "伊藤忠",
-   "sector": "商社",
+   "code": "9984",
+   "name": "ソフトバンクG",
+   "sector": "通信・IT",
+   "score": 85.0
+  },
+  {
+   "code": "8766",
+   "name": "東京海上HD",
+   "sector": "証券・保険",
    "score": 84.0
   },
   {
-   "code": "9107",
-   "name": "川崎汽船",
-   "sector": "運輸・不動産",
-   "score": 81.0
+   "code": "8750",
+   "name": "第一生命HD",
+   "sector": "証券・保険",
+   "score": 84.0
+  },
+  {
+   "code": "4005",
+   "name": "住友化学",
+   "sector": "資源・素材",
+   "score": 84.0
   },
   {
    "code": "9433",
@@ -36,12 +67,18 @@
    "code": "9434",
    "name": "ソフトバンク",
    "sector": "通信・IT",
+   "score": 80.0
+  },
+  {
+   "code": "8306",
+   "name": "三菱UFJ",
+   "sector": "銀行",
    "score": 77.0
   },
   {
-   "code": "8058",
-   "name": "三菱商事",
-   "sector": "商社",
+   "code": "7267",
+   "name": "ホンダ",
+   "sector": "自動車",
    "score": 77.0
   }
  ],
