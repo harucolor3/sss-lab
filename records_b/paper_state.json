@@ -1,16 +1,16 @@
 {
- "last_date": "2026-09-30",
+ "last_date": "2026-10-01",
  "positions": [],
  "pending": [
   {
-   "code": "285A",
-   "name": "キオクシアHD",
-   "sector": "半導体",
-   "score": 88.9
+   "code": "9104",
+   "name": "商船三井",
+   "sector": "運輸・不動産",
+   "score": 79.7
   }
  ],
  "realized": 0.0,
- "month": "2026-09",
+ "month": "2026-10",
  "month_pnl": 0.0,
  "pause_day": false,
  "pause_month": null,

@@ -1,5 +1,5 @@
 {
- "last_date": "2026-09-30",
+ "last_date": "2026-10-01",
  "positions": [
   {
    "code": "9432",
@@ -12,32 +12,32 @@
    "stop": 167.79749999999999,
    "take": 180.705,
    "risk": 4922
-  }
- ],
- "pending": [
-  {
-   "code": "8001",
-   "name": "伊藤忠",
-   "sector": "商社",
-   "score": 84.0
   },
   {
    "code": "5020",
    "name": "ENEOS",
    "sector": "資源・素材",
-   "score": 84.0
+   "score": 84.0,
+   "entry_date": "2026-10-01",
+   "entry": 1372.0,
+   "shares": 100,
+   "stop": 1337.7,
+   "take": 1440.6000000000001,
+   "risk": 3567
+  }
+ ],
+ "pending": [
+  {
+   "code": "6526",
+   "name": "ソシオネクスト",
+   "sector": "半導体",
+   "score": 85.0
   },
   {
-   "code": "8766",
-   "name": "東京海上HD",
-   "sector": "証券・保険",
-   "score": 81.0
-  },
-  {
-   "code": "9433",
-   "name": "KDDI",
-   "sector": "通信・IT",
-   "score": 80.0
+   "code": "9201",
+   "name": "JAL",
+   "sector": "運輸・不動産",
+   "score": 77.0
   },
   {
    "code": "9434",
@@ -47,8 +47,8 @@
   }
  ],
  "realized": -3634.8000000000047,
- "month": "2026-09",
- "month_pnl": -3634.8000000000047,
+ "month": "2026-10",
+ "month_pnl": 0.0,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"
