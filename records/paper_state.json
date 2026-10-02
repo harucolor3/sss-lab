@@ -1,54 +1,23 @@
 {
- "last_date": "2026-10-01",
- "positions": [
-  {
-   "code": "9432",
-   "name": "NTT",
-   "sector": "通信・IT",
-   "score": 86.0,
-   "entry_date": "2026-09-29",
-   "entry": 172.1,
-   "shares": 1100,
-   "stop": 167.79749999999999,
-   "take": 180.705,
-   "risk": 4922
-  },
-  {
-   "code": "5020",
-   "name": "ENEOS",
-   "sector": "資源・素材",
-   "score": 84.0,
-   "entry_date": "2026-10-01",
-   "entry": 1372.0,
-   "shares": 100,
-   "stop": 1337.7,
-   "take": 1440.6000000000001,
-   "risk": 3567
-  }
- ],
+ "last_date": "2026-10-02",
+ "positions": [],
  "pending": [
   {
    "code": "6526",
    "name": "ソシオネクスト",
    "sector": "半導体",
-   "score": 85.0
+   "score": 82.0
   },
   {
    "code": "9201",
    "name": "JAL",
    "sector": "運輸・不動産",
-   "score": 77.0
-  },
-  {
-   "code": "9434",
-   "name": "ソフトバンク",
-   "sector": "通信・IT",
-   "score": 77.0
+   "score": 80.0
   }
  ],
- "realized": -3634.8000000000047,
+ "realized": -7181.309999999992,
  "month": "2026-10",
- "month_pnl": 0.0,
+ "month_pnl": -3546.5099999999875,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"

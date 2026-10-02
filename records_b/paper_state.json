@@ -1,12 +1,12 @@
 {
- "last_date": "2026-10-01",
+ "last_date": "2026-10-02",
  "positions": [],
  "pending": [
   {
-   "code": "9104",
-   "name": "商船三井",
-   "sector": "運輸・不動産",
-   "score": 79.7
+   "code": "7013",
+   "name": "IHI",
+   "sector": "機械・重工",
+   "score": 81.1
   }
  ],
  "realized": 0.0,
