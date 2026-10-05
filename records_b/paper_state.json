@@ -1,14 +1,7 @@
 {
- "last_date": "2026-10-02",
+ "last_date": "2026-10-05",
  "positions": [],
- "pending": [
-  {
-   "code": "7013",
-   "name": "IHI",
-   "sector": "機械・重工",
-   "score": 81.1
-  }
- ],
+ "pending": [],
  "realized": 0.0,
  "month": "2026-10",
  "month_pnl": 0.0,
