@@ -1,14 +1,7 @@
 {
- "last_date": "2026-10-05",
+ "last_date": "2026-10-06",
  "positions": [],
- "pending": [
-  {
-   "code": "9201",
-   "name": "JAL",
-   "sector": "運輸・不動産",
-   "score": 80.0
-  }
- ],
+ "pending": [],
  "realized": -7181.309999999992,
  "month": "2026-10",
  "month_pnl": -3546.5099999999875,
