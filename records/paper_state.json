@@ -1,7 +1,14 @@
 {
- "last_date": "2026-10-06",
+ "last_date": "2026-10-07",
  "positions": [],
- "pending": [],
+ "pending": [
+  {
+   "code": "9984",
+   "name": "ソフトバンクG",
+   "sector": "通信・IT",
+   "score": 82.0
+  }
+ ],
  "realized": -7181.309999999992,
  "month": "2026-10",
  "month_pnl": -3546.5099999999875,
