@@ -1,12 +1,42 @@
 {
- "last_date": "2026-10-07",
+ "last_date": "2026-10-08",
  "positions": [],
  "pending": [
   {
-   "code": "9984",
-   "name": "ソフトバンクG",
-   "sector": "通信・IT",
+   "code": "8035",
+   "name": "東京エレクトロン",
+   "sector": "半導体",
+   "score": 85.0
+  },
+  {
+   "code": "6526",
+   "name": "ソシオネクスト",
+   "sector": "半導体",
    "score": 82.0
+  },
+  {
+   "code": "4062",
+   "name": "イビデン",
+   "sector": "半導体",
+   "score": 82.0
+  },
+  {
+   "code": "6981",
+   "name": "村田製作所",
+   "sector": "電機・電子部品",
+   "score": 82.0
+  },
+  {
+   "code": "6273",
+   "name": "SMC",
+   "sector": "機械・重工",
+   "score": 81.0
+  },
+  {
+   "code": "6954",
+   "name": "ファナック",
+   "sector": "機械・重工",
+   "score": 77.0
   }
  ],
  "realized": -7181.309999999992,
