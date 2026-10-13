@@ -1,48 +1,36 @@
 {
- "last_date": "2026-10-09",
+ "last_date": "2026-10-13",
  "positions": [],
  "pending": [
   {
-   "code": "3436",
-   "name": "SUMCO",
+   "code": "9983",
+   "name": "ファーストリテイリング",
+   "sector": "医薬・消費",
+   "score": 87.0
+  },
+  {
+   "code": "6971",
+   "name": "京セラ",
+   "sector": "電機・電子部品",
+   "score": 87.0
+  },
+  {
+   "code": "4063",
+   "name": "信越化学",
+   "sector": "資源・素材",
+   "score": 86.0
+  },
+  {
+   "code": "6273",
+   "name": "SMC",
+   "sector": "機械・重工",
+   "score": 84.0
+  },
+  {
+   "code": "7735",
+   "name": "SCREEN",
    "sector": "半導体",
-   "score": 85.0
-  },
-  {
-   "code": "4062",
-   "name": "イビデン",
-   "sector": "半導体",
-   "score": 85.0
-  },
-  {
-   "code": "6526",
-   "name": "ソシオネクスト",
-   "sector": "半導体",
-   "score": 85.0
-  },
-  {
-   "code": "6981",
-   "name": "村田製作所",
-   "sector": "電機・電子部品",
-   "score": 85.0
-  },
-  {
-   "code": "5802",
-   "name": "住友電工",
-   "sector": "電機・電子部品",
-   "score": 85.0
-  },
-  {
-   "code": "5803",
-   "name": "フジクラ",
-   "sector": "電機・電子部品",
-   "score": 79.0
-  },
-  {
-   "code": "6752",
-   "name": "パナソニックHD",
-   "sector": "電機・電子部品",
-   "score": 76.0
+   "score": 82.0
   }
  ],
  "realized": -7181.309999999992,
