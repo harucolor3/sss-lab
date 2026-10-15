@@ -1,7 +1,20 @@
 {
- "last_date": "2026-10-13",
+ "last_date": "2026-10-15",
  "positions": [],
- "pending": [],
+ "pending": [
+  {
+   "code": "3407",
+   "name": "旭化成",
+   "sector": "資源・素材",
+   "score": 79.7
+  },
+  {
+   "code": "7272",
+   "name": "ヤマハ発動機",
+   "sector": "自動車",
+   "score": 78.5
+  }
+ ],
  "realized": 0.0,
  "month": "2026-10",
  "month_pnl": 0.0,
