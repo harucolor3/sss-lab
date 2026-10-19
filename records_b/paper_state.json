@@ -1,18 +1,37 @@
 {
- "last_date": "2026-10-16",
- "positions": [],
- "pending": [
-  {
-   "code": "8035",
-   "name": "東京エレクトロン",
-   "sector": "半導体",
-   "score": 81.6
-  },
+ "last_date": "2026-10-19",
+ "positions": [
   {
    "code": "6526",
    "name": "ソシオネクスト",
    "sector": "半導体",
-   "score": 81.1
+   "score": 81.1,
+   "entry_date": "2026-10-19",
+   "entry": 1840.0,
+   "shares": 100,
+   "stop": 1794.0,
+   "take": 1932.0,
+   "risk": 4784
+  }
+ ],
+ "pending": [
+  {
+   "code": "6301",
+   "name": "コマツ",
+   "sector": "機械・重工",
+   "score": 80.5
+  },
+  {
+   "code": "7272",
+   "name": "ヤマハ発動機",
+   "sector": "自動車",
+   "score": 78.1
+  },
+  {
+   "code": "8802",
+   "name": "三菱地所",
+   "sector": "運輸・不動産",
+   "score": 75.9
   }
  ],
  "realized": 4808.6,
