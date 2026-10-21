@@ -1,5 +1,5 @@
 {
- "last_date": "2026-10-20",
+ "last_date": "2026-10-21",
  "positions": [
   {
    "code": "6526",
@@ -12,18 +12,6 @@
    "stop": 1794.0,
    "take": 1932.0,
    "risk": 4784
-  },
-  {
-   "code": "7272",
-   "name": "ヤマハ発動機",
-   "sector": "自動車",
-   "score": 78.1,
-   "entry_date": "2026-10-20",
-   "entry": 1836.0,
-   "shares": 100,
-   "stop": 1790.1,
-   "take": 1927.8000000000002,
-   "risk": 4774
   }
  ],
  "pending": [
@@ -34,21 +22,27 @@
    "score": 87.9
   },
   {
-   "code": "6857",
-   "name": "アドバンテスト",
+   "code": "8035",
+   "name": "東京エレクトロン",
    "sector": "半導体",
-   "score": 87.0
+   "score": 82.0
   },
   {
-   "code": "6301",
-   "name": "コマツ",
+   "code": "6273",
+   "name": "SMC",
    "sector": "機械・重工",
    "score": 82.0
+  },
+  {
+   "code": "7735",
+   "name": "SCREEN",
+   "sector": "半導体",
+   "score": 81.6
   }
  ],
- "realized": 4808.6,
+ "realized": 34.999999999990905,
  "month": "2026-10",
- "month_pnl": 4808.6,
+ "month_pnl": 34.999999999990905,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"
