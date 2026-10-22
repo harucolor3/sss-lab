@@ -1,48 +1,10 @@
 {
- "last_date": "2026-10-21",
- "positions": [
-  {
-   "code": "6526",
-   "name": "ソシオネクスト",
-   "sector": "半導体",
-   "score": 81.1,
-   "entry_date": "2026-10-19",
-   "entry": 1840.0,
-   "shares": 100,
-   "stop": 1794.0,
-   "take": 1932.0,
-   "risk": 4784
-  }
- ],
- "pending": [
-  {
-   "code": "6920",
-   "name": "レーザーテック",
-   "sector": "半導体",
-   "score": 87.9
-  },
-  {
-   "code": "8035",
-   "name": "東京エレクトロン",
-   "sector": "半導体",
-   "score": 82.0
-  },
-  {
-   "code": "6273",
-   "name": "SMC",
-   "sector": "機械・重工",
-   "score": 82.0
-  },
-  {
-   "code": "7735",
-   "name": "SCREEN",
-   "sector": "半導体",
-   "score": 81.6
-  }
- ],
- "realized": 34.999999999990905,
+ "last_date": "2026-10-22",
+ "positions": [],
+ "pending": [],
+ "realized": -4749.000000000009,
  "month": "2026-10",
- "month_pnl": 34.999999999990905,
+ "month_pnl": -4749.000000000009,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"
