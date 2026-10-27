@@ -1,14 +1,20 @@
 {
- "last_date": "2026-10-26",
- "positions": [],
- "pending": [
+ "last_date": "2026-10-27",
+ "positions": [
   {
    "code": "4689",
    "name": "LINEヤフー",
    "sector": "通信・IT",
-   "score": 79.4
+   "score": 79.4,
+   "entry_date": "2026-10-27",
+   "entry": 508.7,
+   "shares": 300,
+   "stop": 495.98249999999996,
+   "take": 534.135,
+   "risk": 3968
   }
  ],
+ "pending": [],
  "realized": -4749.000000000009,
  "month": "2026-10",
  "month_pnl": -4749.000000000009,
