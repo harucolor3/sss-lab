@@ -1,5 +1,5 @@
 {
- "last_date": "2026-10-27",
+ "last_date": "2026-10-28",
  "positions": [
   {
    "code": "4689",
@@ -14,7 +14,38 @@
    "risk": 3968
   }
  ],
- "pending": [],
+ "pending": [
+  {
+   "code": "7270",
+   "name": "SUBARU",
+   "sector": "自動車",
+   "score": 80.2
+  },
+  {
+   "code": "1925",
+   "name": "大和ハウス",
+   "sector": "運輸・不動産",
+   "score": 80.2
+  },
+  {
+   "code": "5020",
+   "name": "ENEOS",
+   "sector": "資源・素材",
+   "score": 78.9
+  },
+  {
+   "code": "1812",
+   "name": "鹿島建設",
+   "sector": "運輸・不動産",
+   "score": 78.6
+  },
+  {
+   "code": "6501",
+   "name": "日立",
+   "sector": "電機・電子部品",
+   "score": 78.0
+  }
+ ],
  "realized": -4749.000000000009,
  "month": "2026-10",
  "month_pnl": -4749.000000000009,

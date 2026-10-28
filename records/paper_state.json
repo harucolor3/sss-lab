@@ -1,5 +1,5 @@
 {
- "last_date": "2026-10-27",
+ "last_date": "2026-10-28",
  "positions": [
   {
    "code": "3407",
@@ -12,26 +12,20 @@
    "stop": 1540.5,
    "take": 1659.0,
    "risk": 4108
-  },
-  {
-   "code": "7272",
-   "name": "ヤマハ発動機",
-   "sector": "自動車",
-   "score": 77.0,
-   "entry_date": "2026-10-27",
-   "entry": 1787.0,
-   "shares": 100,
-   "stop": 1742.325,
-   "take": 1876.3500000000001,
-   "risk": 4646
   }
  ],
  "pending": [
   {
-   "code": "4452",
-   "name": "花王",
-   "sector": "医薬・消費",
+   "code": "7267",
+   "name": "ホンダ",
+   "sector": "自動車",
    "score": 92.0
+  },
+  {
+   "code": "9104",
+   "name": "商船三井",
+   "sector": "運輸・不動産",
+   "score": 87.0
   },
   {
    "code": "9983",
@@ -40,15 +34,51 @@
    "score": 87.0
   },
   {
-   "code": "7974",
-   "name": "任天堂",
-   "sector": "医薬・消費",
+   "code": "6701",
+   "name": "NEC",
+   "sector": "電機・電子部品",
    "score": 87.0
+  },
+  {
+   "code": "3382",
+   "name": "セブン&アイ",
+   "sector": "医薬・消費",
+   "score": 86.0
+  },
+  {
+   "code": "9022",
+   "name": "JR東海",
+   "sector": "運輸・不動産",
+   "score": 86.0
+  },
+  {
+   "code": "8802",
+   "name": "三菱地所",
+   "sector": "運輸・不動産",
+   "score": 84.0
+  },
+  {
+   "code": "6501",
+   "name": "日立",
+   "sector": "電機・電子部品",
+   "score": 84.0
+  },
+  {
+   "code": "2502",
+   "name": "アサヒGHD",
+   "sector": "医薬・消費",
+   "score": 80.0
+  },
+  {
+   "code": "7751",
+   "name": "キヤノン",
+   "sector": "電機・電子部品",
+   "score": 80.0
   }
  ],
- "realized": -11892.509999999987,
+ "realized": -16538.709999999985,
  "month": "2026-10",
- "month_pnl": -8257.709999999983,
+ "month_pnl": -12903.909999999978,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"
