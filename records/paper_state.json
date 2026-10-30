@@ -1,96 +1,29 @@
 {
- "last_date": "2026-10-29",
- "positions": [
-  {
-   "code": "3407",
-   "name": "旭化成",
-   "sector": "資源・素材",
-   "score": 77.0,
-   "entry_date": "2026-10-26",
-   "entry": 1580.0,
-   "shares": 100,
-   "stop": 1540.5,
-   "take": 1659.0,
-   "risk": 4108
-  },
-  {
-   "code": "7267",
-   "name": "ホンダ",
-   "sector": "自動車",
-   "score": 92.0,
-   "entry_date": "2026-10-29",
-   "entry": 1762.0,
-   "shares": 100,
-   "stop": 1717.95,
-   "take": 1850.1000000000001,
-   "risk": 4581
-  }
- ],
+ "last_date": "2026-10-30",
+ "positions": [],
  "pending": [
-  {
-   "code": "4661",
-   "name": "オリエンタルランド",
-   "sector": "医薬・消費",
-   "score": 95.0
-  },
   {
    "code": "2914",
    "name": "JT",
    "sector": "医薬・消費",
-   "score": 92.0
+   "score": 95.0
   },
   {
-   "code": "3382",
-   "name": "セブン&アイ",
+   "code": "2502",
+   "name": "アサヒGHD",
    "sector": "医薬・消費",
    "score": 92.0
-  },
-  {
-   "code": "6702",
-   "name": "富士通",
-   "sector": "電機・電子部品",
-   "score": 90.0
   },
   {
    "code": "7751",
    "name": "キヤノン",
    "sector": "電機・電子部品",
    "score": 89.0
-  },
-  {
-   "code": "2502",
-   "name": "アサヒGHD",
-   "sector": "医薬・消費",
-   "score": 89.0
-  },
-  {
-   "code": "6098",
-   "name": "リクルートHD",
-   "sector": "通信・IT",
-   "score": 87.0
-  },
-  {
-   "code": "9983",
-   "name": "ファーストリテイリング",
-   "sector": "医薬・消費",
-   "score": 87.0
-  },
-  {
-   "code": "9022",
-   "name": "JR東海",
-   "sector": "運輸・不動産",
-   "score": 86.0
-  },
-  {
-   "code": "4307",
-   "name": "野村総研",
-   "sector": "通信・IT",
-   "score": 85.0
   }
  ],
- "realized": -16538.709999999985,
+ "realized": -11972.909999999985,
  "month": "2026-10",
- "month_pnl": -12903.909999999978,
+ "month_pnl": -8338.109999999979,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"

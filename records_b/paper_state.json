@@ -1,42 +1,35 @@
 {
- "last_date": "2026-10-29",
- "positions": [
-  {
-   "code": "5020",
-   "name": "ENEOS",
-   "sector": "資源・素材",
-   "score": 78.9,
-   "entry_date": "2026-10-29",
-   "entry": 1439.0,
-   "shares": 100,
-   "stop": 1403.0249999999999,
-   "take": 1510.95,
-   "risk": 3741
-  }
- ],
+ "last_date": "2026-10-30",
+ "positions": [],
  "pending": [
   {
-   "code": "7270",
-   "name": "SUBARU",
-   "sector": "自動車",
-   "score": 78.5
+   "code": "8750",
+   "name": "第一生命HD",
+   "sector": "証券・保険",
+   "score": 89.7
   },
   {
-   "code": "1925",
-   "name": "大和ハウス",
+   "code": "9202",
+   "name": "ANA HD",
    "sector": "運輸・不動産",
-   "score": 77.6
+   "score": 81.0
+  },
+  {
+   "code": "4568",
+   "name": "第一三共",
+   "sector": "医薬・消費",
+   "score": 78.4
   },
   {
    "code": "6902",
    "name": "デンソー",
    "sector": "自動車",
-   "score": 75.5
+   "score": 77.3
   }
  ],
- "realized": -8716.860000000019,
+ "realized": -9546.260000000018,
  "month": "2026-10",
- "month_pnl": -8716.860000000019,
+ "month_pnl": -9546.260000000018,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"
