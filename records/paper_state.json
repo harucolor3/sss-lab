@@ -1,6 +1,19 @@
 {
- "last_date": "2026-10-30",
- "positions": [],
+ "last_date": "2026-11-02",
+ "positions": [
+  {
+   "code": "2502",
+   "name": "アサヒGHD",
+   "sector": "医薬・消費",
+   "score": 92.0,
+   "entry_date": "2026-11-02",
+   "entry": 1665.0,
+   "shares": 100,
+   "stop": 1623.375,
+   "take": 1748.25,
+   "risk": 4329
+  }
+ ],
  "pending": [
   {
    "code": "2914",
@@ -9,21 +22,45 @@
    "score": 95.0
   },
   {
-   "code": "2502",
-   "name": "アサヒGHD",
-   "sector": "医薬・消費",
+   "code": "8725",
+   "name": "MS&AD",
+   "sector": "証券・保険",
    "score": 92.0
+  },
+  {
+   "code": "9020",
+   "name": "JR東日本",
+   "sector": "運輸・不動産",
+   "score": 92.0
+  },
+  {
+   "code": "6098",
+   "name": "リクルートHD",
+   "sector": "通信・IT",
+   "score": 90.0
   },
   {
    "code": "7751",
    "name": "キヤノン",
    "sector": "電機・電子部品",
    "score": 89.0
+  },
+  {
+   "code": "8766",
+   "name": "東京海上HD",
+   "sector": "証券・保険",
+   "score": 87.0
+  },
+  {
+   "code": "4307",
+   "name": "野村総研",
+   "sector": "通信・IT",
+   "score": 82.0
   }
  ],
  "realized": -11972.909999999985,
- "month": "2026-10",
- "month_pnl": -8338.109999999979,
+ "month": "2026-11",
+ "month_pnl": 0.0,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"
