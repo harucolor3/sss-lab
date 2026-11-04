@@ -1,5 +1,5 @@
 {
- "last_date": "2026-11-02",
+ "last_date": "2026-11-04",
  "positions": [
   {
    "code": "8750",
@@ -28,46 +28,52 @@
  ],
  "pending": [
   {
-   "code": "5020",
-   "name": "ENEOS",
-   "sector": "資源・素材",
-   "score": 88.1
-  },
-  {
-   "code": "4568",
-   "name": "第一三共",
-   "sector": "医薬・消費",
-   "score": 84.3
-  },
-  {
-   "code": "1812",
-   "name": "鹿島建設",
+   "code": "9107",
+   "name": "川崎汽船",
    "sector": "運輸・不動産",
-   "score": 79.8
+   "score": 87.3
   },
   {
    "code": "8601",
    "name": "大和証券G",
    "sector": "証券・保険",
-   "score": 78.9
+   "score": 78.8
   },
   {
    "code": "8053",
    "name": "住友商事",
    "sector": "商社",
-   "score": 77.8
+   "score": 78.6
+  },
+  {
+   "code": "8002",
+   "name": "丸紅",
+   "sector": "商社",
+   "score": 78.2
+  },
+  {
+   "code": "8031",
+   "name": "三井物産",
+   "sector": "商社",
+   "score": 77.5
+  },
+  {
+   "code": "8267",
+   "name": "イオン",
+   "sector": "医薬・消費",
+   "score": 77.2
+  },
+  {
+   "code": "9432",
+   "name": "NTT",
+   "sector": "通信・IT",
+   "score": 77.0
   },
   {
    "code": "7751",
    "name": "キヤノン",
    "sector": "電機・電子部品",
-   "score": 77.2
-  },
-  {
-   "code": "8604",
-   "name": "野村HD",
-   "sector": "証券・保険",
-   "score": 76.4
+   "score": 76.3
   }
  ],
  "realized": -9546.260000000018,

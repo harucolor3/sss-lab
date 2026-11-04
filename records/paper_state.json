@@ -1,5 +1,5 @@
 {
- "last_date": "2026-11-02",
+ "last_date": "2026-11-04",
  "positions": [
   {
    "code": "2502",
@@ -16,9 +16,9 @@
  ],
  "pending": [
   {
-   "code": "2914",
-   "name": "JT",
-   "sector": "医薬・消費",
+   "code": "8001",
+   "name": "伊藤忠",
+   "sector": "商社",
    "score": 95.0
   },
   {
@@ -28,16 +28,10 @@
    "score": 92.0
   },
   {
-   "code": "9020",
-   "name": "JR東日本",
-   "sector": "運輸・不動産",
+   "code": "2914",
+   "name": "JT",
+   "sector": "医薬・消費",
    "score": 92.0
-  },
-  {
-   "code": "6098",
-   "name": "リクルートHD",
-   "sector": "通信・IT",
-   "score": 90.0
   },
   {
    "code": "7751",
@@ -46,9 +40,9 @@
    "score": 89.0
   },
   {
-   "code": "8766",
-   "name": "東京海上HD",
-   "sector": "証券・保険",
+   "code": "1605",
+   "name": "INPEX",
+   "sector": "資源・素材",
    "score": 87.0
   },
   {
@@ -58,9 +52,9 @@
    "score": 82.0
   }
  ],
- "realized": -11972.909999999985,
+ "realized": -16532.789999999986,
  "month": "2026-11",
- "month_pnl": 0.0,
+ "month_pnl": -4559.880000000003,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"
