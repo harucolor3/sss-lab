@@ -1,60 +1,17 @@
 {
- "last_date": "2026-11-04",
- "positions": [
-  {
-   "code": "2502",
-   "name": "アサヒGHD",
-   "sector": "医薬・消費",
-   "score": 92.0,
-   "entry_date": "2026-11-02",
-   "entry": 1665.0,
-   "shares": 100,
-   "stop": 1623.375,
-   "take": 1748.25,
-   "risk": 4329
-  }
- ],
+ "last_date": "2026-11-05",
+ "positions": [],
  "pending": [
   {
-   "code": "8001",
-   "name": "伊藤忠",
-   "sector": "商社",
-   "score": 95.0
-  },
-  {
-   "code": "8725",
-   "name": "MS&AD",
-   "sector": "証券・保険",
-   "score": 92.0
-  },
-  {
-   "code": "2914",
-   "name": "JT",
-   "sector": "医薬・消費",
-   "score": 92.0
-  },
-  {
-   "code": "7751",
-   "name": "キヤノン",
-   "sector": "電機・電子部品",
-   "score": 89.0
-  },
-  {
-   "code": "1605",
-   "name": "INPEX",
-   "sector": "資源・素材",
-   "score": 87.0
-  },
-  {
-   "code": "4307",
-   "name": "野村総研",
-   "sector": "通信・IT",
-   "score": 82.0
+   "code": "9101",
+   "name": "日本郵船",
+   "sector": "運輸・不動産",
+   "score": 81.0
   }
  ],
- "realized": -16532.789999999986,
+ "realized": -8349.289999999986,
  "month": "2026-11",
- "month_pnl": -4559.880000000003,
+ "month_pnl": 3623.619999999997,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"

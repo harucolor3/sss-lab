@@ -1,5 +1,5 @@
 {
- "last_date": "2026-11-04",
+ "last_date": "2026-11-05",
  "positions": [
   {
    "code": "8750",
@@ -28,51 +28,33 @@
  ],
  "pending": [
   {
-   "code": "9107",
-   "name": "川崎汽船",
-   "sector": "運輸・不動産",
-   "score": 87.3
-  },
-  {
-   "code": "8601",
-   "name": "大和証券G",
-   "sector": "証券・保険",
-   "score": 78.8
+   "code": "4689",
+   "name": "LINEヤフー",
+   "sector": "通信・IT",
+   "score": 83.8
   },
   {
    "code": "8053",
    "name": "住友商事",
    "sector": "商社",
-   "score": 78.6
-  },
-  {
-   "code": "8002",
-   "name": "丸紅",
-   "sector": "商社",
-   "score": 78.2
-  },
-  {
-   "code": "8031",
-   "name": "三井物産",
-   "sector": "商社",
-   "score": 77.5
-  },
-  {
-   "code": "8267",
-   "name": "イオン",
-   "sector": "医薬・消費",
-   "score": 77.2
+   "score": 79.2
   },
   {
    "code": "9432",
    "name": "NTT",
    "sector": "通信・IT",
-   "score": 77.0
+   "score": 77.9
   },
   {
-   "code": "7751",
-   "name": "キヤノン",
-   "sector": "電機・電子部品",
+   "code": "4755",
+   "name": "楽天G",
+   "sector": "通信・IT",
+   "score": 76.6
+  },
+  {
+   "code": "8601",
+   "name": "大和証券G",
+   "sector": "証券・保険",
    "score": 76.3
   }
  ],
