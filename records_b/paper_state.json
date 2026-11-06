@@ -1,66 +1,107 @@
 {
- "last_date": "2026-11-05",
- "positions": [
-  {
-   "code": "8750",
-   "name": "第一生命HD",
-   "sector": "証券・保険",
-   "score": 89.7,
-   "entry_date": "2026-11-02",
-   "entry": 1800.5,
-   "shares": 100,
-   "stop": 1755.4875,
-   "take": 1890.525,
-   "risk": 4681
-  },
-  {
-   "code": "6902",
-   "name": "デンソー",
-   "sector": "自動車",
-   "score": 77.3,
-   "entry_date": "2026-11-02",
-   "entry": 1859.0,
-   "shares": 100,
-   "stop": 1812.5249999999999,
-   "take": 1951.95,
-   "risk": 4833
-  }
- ],
+ "last_date": "2026-11-06",
+ "positions": [],
  "pending": [
   {
-   "code": "4689",
-   "name": "LINEヤフー",
+   "code": "9433",
+   "name": "KDDI",
    "sector": "通信・IT",
-   "score": 83.8
-  },
-  {
-   "code": "8053",
-   "name": "住友商事",
-   "sector": "商社",
-   "score": 79.2
-  },
-  {
-   "code": "9432",
-   "name": "NTT",
-   "sector": "通信・IT",
-   "score": 77.9
-  },
-  {
-   "code": "4755",
-   "name": "楽天G",
-   "sector": "通信・IT",
-   "score": 76.6
+   "score": 93.9
   },
   {
    "code": "8601",
    "name": "大和証券G",
    "sector": "証券・保険",
-   "score": 76.3
+   "score": 90.3
+  },
+  {
+   "code": "8053",
+   "name": "住友商事",
+   "sector": "商社",
+   "score": 90.2
+  },
+  {
+   "code": "9107",
+   "name": "川崎汽船",
+   "sector": "運輸・不動産",
+   "score": 90.2
+  },
+  {
+   "code": "9432",
+   "name": "NTT",
+   "sector": "通信・IT",
+   "score": 89.4
+  },
+  {
+   "code": "9101",
+   "name": "日本郵船",
+   "sector": "運輸・不動産",
+   "score": 89.4
+  },
+  {
+   "code": "8031",
+   "name": "三井物産",
+   "sector": "商社",
+   "score": 89.3
+  },
+  {
+   "code": "8604",
+   "name": "野村HD",
+   "sector": "証券・保険",
+   "score": 85.6
+  },
+  {
+   "code": "6902",
+   "name": "デンソー",
+   "sector": "自動車",
+   "score": 84.8
+  },
+  {
+   "code": "8267",
+   "name": "イオン",
+   "sector": "医薬・消費",
+   "score": 84.4
+  },
+  {
+   "code": "5411",
+   "name": "JFE HD",
+   "sector": "資源・素材",
+   "score": 83.9
+  },
+  {
+   "code": "5401",
+   "name": "日本製鉄",
+   "sector": "資源・素材",
+   "score": 83.9
+  },
+  {
+   "code": "8002",
+   "name": "丸紅",
+   "sector": "商社",
+   "score": 83.3
+  },
+  {
+   "code": "7751",
+   "name": "キヤノン",
+   "sector": "電機・電子部品",
+   "score": 82.7
+  },
+  {
+   "code": "3407",
+   "name": "旭化成",
+   "sector": "資源・素材",
+   "score": 78.6
+  },
+  {
+   "code": "7272",
+   "name": "ヤマハ発動機",
+   "sector": "自動車",
+   "score": 77.8
   }
  ],
- "realized": -9546.260000000018,
+ "realized": -14263.460000000023,
  "month": "2026-11",
- "month_pnl": 0.0,
+ "month_pnl": -4717.200000000004,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"
