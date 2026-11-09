@@ -1,48 +1,18 @@
 {
- "last_date": "2026-11-06",
+ "last_date": "2026-11-09",
  "positions": [],
  "pending": [
-  {
-   "code": "8630",
-   "name": "SOMPO",
-   "sector": "証券・保険",
-   "score": 90.0
-  },
   {
    "code": "8725",
    "name": "MS&AD",
    "sector": "証券・保険",
-   "score": 90.0
-  },
-  {
-   "code": "8001",
-   "name": "伊藤忠",
-   "sector": "商社",
-   "score": 90.0
-  },
-  {
-   "code": "7751",
-   "name": "キヤノン",
-   "sector": "電機・電子部品",
    "score": 87.0
-  },
-  {
-   "code": "4503",
-   "name": "アステラス",
-   "sector": "医薬・消費",
-   "score": 87.0
-  },
-  {
-   "code": "8002",
-   "name": "丸紅",
-   "sector": "商社",
-   "score": 85.0
   },
   {
    "code": "4307",
    "name": "野村総研",
    "sector": "通信・IT",
-   "score": 85.0
+   "score": 82.0
   }
  ],
  "realized": -8349.289999999986,

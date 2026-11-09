@@ -1,102 +1,79 @@
 {
- "last_date": "2026-11-06",
- "positions": [],
- "pending": [
-  {
-   "code": "9433",
-   "name": "KDDI",
-   "sector": "通信・IT",
-   "score": 93.9
-  },
+ "last_date": "2026-11-09",
+ "positions": [
   {
    "code": "8601",
    "name": "大和証券G",
    "sector": "証券・保険",
-   "score": 90.3
+   "score": 90.3,
+   "entry_date": "2026-11-09",
+   "entry": 1650.5,
+   "shares": 100,
+   "stop": 1609.2375,
+   "take": 1733.025,
+   "risk": 4291
   },
   {
    "code": "8053",
    "name": "住友商事",
    "sector": "商社",
-   "score": 90.2
-  },
-  {
-   "code": "9107",
-   "name": "川崎汽船",
-   "sector": "運輸・不動産",
-   "score": 90.2
-  },
-  {
-   "code": "9432",
-   "name": "NTT",
-   "sector": "通信・IT",
-   "score": 89.4
-  },
-  {
-   "code": "9101",
-   "name": "日本郵船",
-   "sector": "運輸・不動産",
-   "score": 89.4
-  },
+   "score": 90.2,
+   "entry_date": "2026-11-09",
+   "entry": 1606.0,
+   "shares": 100,
+   "stop": 1565.85,
+   "take": 1686.3000000000002,
+   "risk": 4176
+  }
+ ],
+ "pending": [
   {
    "code": "8031",
    "name": "三井物産",
    "sector": "商社",
-   "score": 89.3
+   "score": 99.1
+  },
+  {
+   "code": "9433",
+   "name": "KDDI",
+   "sector": "通信・IT",
+   "score": 88.8
   },
   {
    "code": "8604",
    "name": "野村HD",
    "sector": "証券・保険",
-   "score": 85.6
+   "score": 87.3
   },
   {
-   "code": "6902",
-   "name": "デンソー",
+   "code": "7261",
+   "name": "マツダ",
    "sector": "自動車",
-   "score": 84.8
+   "score": 83.5
   },
   {
-   "code": "8267",
-   "name": "イオン",
-   "sector": "医薬・消費",
-   "score": 84.4
+   "code": "8591",
+   "name": "オリックス",
+   "sector": "証券・保険",
+   "score": 80.4
   },
   {
-   "code": "5411",
-   "name": "JFE HD",
-   "sector": "資源・素材",
-   "score": 83.9
+   "code": "9432",
+   "name": "NTT",
+   "sector": "通信・IT",
+   "score": 80.4
   },
   {
-   "code": "5401",
-   "name": "日本製鉄",
-   "sector": "資源・素材",
-   "score": 83.9
+   "code": "6326",
+   "name": "クボタ",
+   "sector": "機械・重工",
+   "score": 79.4
   },
   {
-   "code": "8002",
-   "name": "丸紅",
-   "sector": "商社",
-   "score": 83.3
-  },
-  {
-   "code": "7751",
-   "name": "キヤノン",
-   "sector": "電機・電子部品",
-   "score": 82.7
-  },
-  {
-   "code": "3407",
-   "name": "旭化成",
-   "sector": "資源・素材",
-   "score": 78.6
-  },
-  {
-   "code": "7272",
-   "name": "ヤマハ発動機",
-   "sector": "自動車",
-   "score": 77.8
+   "code": "9434",
+   "name": "ソフトバンク",
+   "sector": "通信・IT",
+   "score": 78.1
   }
  ],
  "realized": -14263.460000000023,
