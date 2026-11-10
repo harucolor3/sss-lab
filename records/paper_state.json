@@ -1,5 +1,5 @@
 {
- "last_date": "2026-11-09",
+ "last_date": "2026-11-10",
  "positions": [],
  "pending": [
   {
@@ -9,9 +9,21 @@
    "score": 87.0
   },
   {
+   "code": "4568",
+   "name": "第一三共",
+   "sector": "医薬・消費",
+   "score": 85.0
+  },
+  {
    "code": "4307",
    "name": "野村総研",
    "sector": "通信・IT",
+   "score": 85.0
+  },
+  {
+   "code": "8801",
+   "name": "三井不動産",
+   "sector": "運輸・不動産",
    "score": 82.0
   }
  ],

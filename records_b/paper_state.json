@@ -1,84 +1,59 @@
 {
- "last_date": "2026-11-09",
- "positions": [
-  {
-   "code": "8601",
-   "name": "大和証券G",
-   "sector": "証券・保険",
-   "score": 90.3,
-   "entry_date": "2026-11-09",
-   "entry": 1650.5,
-   "shares": 100,
-   "stop": 1609.2375,
-   "take": 1733.025,
-   "risk": 4291
-  },
-  {
-   "code": "8053",
-   "name": "住友商事",
-   "sector": "商社",
-   "score": 90.2,
-   "entry_date": "2026-11-09",
-   "entry": 1606.0,
-   "shares": 100,
-   "stop": 1565.85,
-   "take": 1686.3000000000002,
-   "risk": 4176
-  }
- ],
+ "last_date": "2026-11-10",
+ "positions": [],
  "pending": [
-  {
-   "code": "8031",
-   "name": "三井物産",
-   "sector": "商社",
-   "score": 99.1
-  },
   {
    "code": "9433",
    "name": "KDDI",
    "sector": "通信・IT",
-   "score": 88.8
+   "score": 89.7
   },
   {
-   "code": "8604",
-   "name": "野村HD",
-   "sector": "証券・保険",
-   "score": 87.3
-  },
-  {
-   "code": "7261",
-   "name": "マツダ",
-   "sector": "自動車",
-   "score": 83.5
-  },
-  {
-   "code": "8591",
-   "name": "オリックス",
-   "sector": "証券・保険",
-   "score": 80.4
-  },
-  {
-   "code": "9432",
-   "name": "NTT",
-   "sector": "通信・IT",
-   "score": 80.4
+   "code": "8031",
+   "name": "三井物産",
+   "sector": "商社",
+   "score": 86.8
   },
   {
    "code": "6326",
    "name": "クボタ",
    "sector": "機械・重工",
-   "score": 79.4
+   "score": 81.1
+  },
+  {
+   "code": "8053",
+   "name": "住友商事",
+   "sector": "商社",
+   "score": 79.6
+  },
+  {
+   "code": "3407",
+   "name": "旭化成",
+   "sector": "資源・素材",
+   "score": 78.9
+  },
+  {
+   "code": "8601",
+   "name": "大和証券G",
+   "sector": "証券・保険",
+   "score": 78.9
   },
   {
    "code": "9434",
    "name": "ソフトバンク",
    "sector": "通信・IT",
-   "score": 78.1
+   "score": 78.8
+  },
+  {
+   "code": "7272",
+   "name": "ヤマハ発動機",
+   "sector": "自動車",
+   "score": 77.2
   }
  ],
- "realized": -14263.460000000023,
+ "realized": 3110.8899999999758,
  "month": "2026-11",
- "month_pnl": -4717.200000000004,
+ "month_pnl": 12657.149999999994,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"
