@@ -1,12 +1,31 @@
 {
- "last_date": "2026-11-10",
- "positions": [],
+ "last_date": "2026-11-11",
+ "positions": [
+  {
+   "code": "8801",
+   "name": "三井不動産",
+   "sector": "運輸・不動産",
+   "score": 82.0,
+   "entry_date": "2026-11-11",
+   "entry": 1561.5,
+   "shares": 100,
+   "stop": 1522.4624999999999,
+   "take": 1639.575,
+   "risk": 4060
+  }
+ ],
  "pending": [
   {
-   "code": "8725",
-   "name": "MS&AD",
-   "sector": "証券・保険",
-   "score": 87.0
+   "code": "3382",
+   "name": "セブン&アイ",
+   "sector": "医薬・消費",
+   "score": 92.0
+  },
+  {
+   "code": "1925",
+   "name": "大和ハウス",
+   "sector": "運輸・不動産",
+   "score": 92.0
   },
   {
    "code": "4568",
@@ -18,13 +37,13 @@
    "code": "4307",
    "name": "野村総研",
    "sector": "通信・IT",
-   "score": 85.0
+   "score": 82.0
   },
   {
-   "code": "8801",
-   "name": "三井不動産",
-   "sector": "運輸・不動産",
-   "score": 82.0
+   "code": "7267",
+   "name": "ホンダ",
+   "sector": "自動車",
+   "score": 81.0
   }
  ],
  "realized": -8349.289999999986,

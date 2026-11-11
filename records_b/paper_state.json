@@ -1,54 +1,73 @@
 {
- "last_date": "2026-11-10",
- "positions": [],
- "pending": [
-  {
-   "code": "9433",
-   "name": "KDDI",
-   "sector": "通信・IT",
-   "score": 89.7
-  },
-  {
-   "code": "8031",
-   "name": "三井物産",
-   "sector": "商社",
-   "score": 86.8
-  },
-  {
-   "code": "6326",
-   "name": "クボタ",
-   "sector": "機械・重工",
-   "score": 81.1
-  },
+ "last_date": "2026-11-11",
+ "positions": [
   {
    "code": "8053",
    "name": "住友商事",
    "sector": "商社",
-   "score": 79.6
+   "score": 79.6,
+   "entry_date": "2026-11-11",
+   "entry": 1716.0,
+   "shares": 100,
+   "stop": 1673.1,
+   "take": 1801.8000000000002,
+   "risk": 4462
   },
   {
    "code": "3407",
    "name": "旭化成",
    "sector": "資源・素材",
-   "score": 78.9
+   "score": 78.9,
+   "entry_date": "2026-11-11",
+   "entry": 1576.5,
+   "shares": 100,
+   "stop": 1537.0874999999999,
+   "take": 1655.325,
+   "risk": 4099
+  }
+ ],
+ "pending": [
+  {
+   "code": "8031",
+   "name": "三井物産",
+   "sector": "商社",
+   "score": 87.7
   },
   {
-   "code": "8601",
-   "name": "大和証券G",
-   "sector": "証券・保険",
-   "score": 78.9
+   "code": "1801",
+   "name": "大成建設",
+   "sector": "運輸・不動産",
+   "score": 83.7
+  },
+  {
+   "code": "9433",
+   "name": "KDDI",
+   "sector": "通信・IT",
+   "score": 80.5
+  },
+  {
+   "code": "7751",
+   "name": "キヤノン",
+   "sector": "電機・電子部品",
+   "score": 79.8
   },
   {
    "code": "9434",
    "name": "ソフトバンク",
    "sector": "通信・IT",
-   "score": 78.8
+   "score": 79.3
   },
   {
-   "code": "7272",
-   "name": "ヤマハ発動機",
-   "sector": "自動車",
+   "code": "8601",
+   "name": "大和証券G",
+   "sector": "証券・保険",
    "score": 77.2
+  },
+  {
+   "code": "1812",
+   "name": "鹿島建設",
+   "sector": "運輸・不動産",
+   "score": 77.1
   }
  ],
  "realized": 3110.8899999999758,
