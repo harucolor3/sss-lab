@@ -1,5 +1,5 @@
 {
- "last_date": "2026-11-11",
+ "last_date": "2026-11-12",
  "positions": [
   {
    "code": "8053",
@@ -28,46 +28,34 @@
  ],
  "pending": [
   {
+   "code": "4307",
+   "name": "野村総研",
+   "sector": "通信・IT",
+   "score": 87.9
+  },
+  {
    "code": "8031",
    "name": "三井物産",
    "sector": "商社",
    "score": 87.7
   },
   {
-   "code": "1801",
-   "name": "大成建設",
+   "code": "1812",
+   "name": "鹿島建設",
    "sector": "運輸・不動産",
-   "score": 83.7
+   "score": 85.2
   },
   {
    "code": "9433",
    "name": "KDDI",
    "sector": "通信・IT",
-   "score": 80.5
-  },
-  {
-   "code": "7751",
-   "name": "キヤノン",
-   "sector": "電機・電子部品",
-   "score": 79.8
-  },
-  {
-   "code": "9434",
-   "name": "ソフトバンク",
-   "sector": "通信・IT",
-   "score": 79.3
+   "score": 81.7
   },
   {
    "code": "8601",
    "name": "大和証券G",
    "sector": "証券・保険",
-   "score": 77.2
-  },
-  {
-   "code": "1812",
-   "name": "鹿島建設",
-   "sector": "運輸・不動産",
-   "score": 77.1
+   "score": 79.8
   }
  ],
  "realized": 3110.8899999999758,
