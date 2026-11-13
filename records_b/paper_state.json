@@ -1,66 +1,23 @@
 {
- "last_date": "2026-11-12",
- "positions": [
-  {
-   "code": "8053",
-   "name": "住友商事",
-   "sector": "商社",
-   "score": 79.6,
-   "entry_date": "2026-11-11",
-   "entry": 1716.0,
-   "shares": 100,
-   "stop": 1673.1,
-   "take": 1801.8000000000002,
-   "risk": 4462
-  },
-  {
-   "code": "3407",
-   "name": "旭化成",
-   "sector": "資源・素材",
-   "score": 78.9,
-   "entry_date": "2026-11-11",
-   "entry": 1576.5,
-   "shares": 100,
-   "stop": 1537.0874999999999,
-   "take": 1655.325,
-   "risk": 4099
-  }
- ],
+ "last_date": "2026-11-13",
+ "positions": [],
  "pending": [
   {
-   "code": "4307",
-   "name": "野村総研",
+   "code": "4755",
+   "name": "楽天G",
    "sector": "通信・IT",
-   "score": 87.9
+   "score": 78.9
   },
   {
-   "code": "8031",
-   "name": "三井物産",
-   "sector": "商社",
-   "score": 87.7
-  },
-  {
-   "code": "1812",
-   "name": "鹿島建設",
-   "sector": "運輸・不動産",
-   "score": 85.2
-  },
-  {
-   "code": "9433",
-   "name": "KDDI",
-   "sector": "通信・IT",
-   "score": 81.7
-  },
-  {
-   "code": "8601",
-   "name": "大和証券G",
-   "sector": "証券・保険",
-   "score": 79.8
+   "code": "8308",
+   "name": "りそなHD",
+   "sector": "銀行",
+   "score": 77.4
   }
  ],
- "realized": 3110.8899999999758,
+ "realized": 9731.639999999976,
  "month": "2026-11",
- "month_pnl": 12657.149999999994,
+ "month_pnl": 19277.899999999994,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"

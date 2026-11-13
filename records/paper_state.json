@@ -1,102 +1,23 @@
 {
- "last_date": "2026-11-12",
- "positions": [
-  {
-   "code": "8801",
-   "name": "三井不動産",
-   "sector": "運輸・不動産",
-   "score": 82.0,
-   "entry_date": "2026-11-11",
-   "entry": 1561.5,
-   "shares": 100,
-   "stop": 1522.4624999999999,
-   "take": 1639.575,
-   "risk": 4060
-  },
-  {
-   "code": "7267",
-   "name": "ホンダ",
-   "sector": "自動車",
-   "score": 81.0,
-   "entry_date": "2026-11-12",
-   "entry": 1779.5,
-   "shares": 100,
-   "stop": 1735.0125,
-   "take": 1868.4750000000001,
-   "risk": 4627
-  }
- ],
+ "last_date": "2026-11-13",
+ "positions": [],
  "pending": [
   {
    "code": "7269",
    "name": "スズキ",
    "sector": "自動車",
-   "score": 90.0
-  },
-  {
-   "code": "7261",
-   "name": "マツダ",
-   "sector": "自動車",
-   "score": 90.0
-  },
-  {
-   "code": "3382",
-   "name": "セブン&アイ",
-   "sector": "医薬・消費",
-   "score": 90.0
-  },
-  {
-   "code": "7270",
-   "name": "SUBARU",
-   "sector": "自動車",
-   "score": 87.0
-  },
-  {
-   "code": "7203",
-   "name": "トヨタ自動車",
-   "sector": "自動車",
-   "score": 85.0
-  },
-  {
-   "code": "8802",
-   "name": "三菱地所",
-   "sector": "運輸・不動産",
-   "score": 85.0
-  },
-  {
-   "code": "7974",
-   "name": "任天堂",
-   "sector": "医薬・消費",
-   "score": 85.0
-  },
-  {
-   "code": "9983",
-   "name": "ファーストリテイリング",
-   "sector": "医薬・消費",
    "score": 82.0
-  },
-  {
-   "code": "8267",
-   "name": "イオン",
-   "sector": "医薬・消費",
-   "score": 82.0
-  },
-  {
-   "code": "7751",
-   "name": "キヤノン",
-   "sector": "電機・電子部品",
-   "score": 81.0
   },
   {
    "code": "4689",
    "name": "LINEヤフー",
    "sector": "通信・IT",
-   "score": 79.0
+   "score": 76.0
   }
  ],
- "realized": -8349.289999999986,
+ "realized": 3666.610000000015,
  "month": "2026-11",
- "month_pnl": 3623.619999999997,
+ "month_pnl": 15639.519999999999,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"
