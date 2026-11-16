@@ -1,18 +1,31 @@
 {
- "last_date": "2026-11-13",
- "positions": [],
- "pending": [
-  {
-   "code": "7269",
-   "name": "スズキ",
-   "sector": "自動車",
-   "score": 82.0
-  },
+ "last_date": "2026-11-16",
+ "positions": [
   {
    "code": "4689",
    "name": "LINEヤフー",
    "sector": "通信・IT",
-   "score": 76.0
+   "score": 76.0,
+   "entry_date": "2026-11-16",
+   "entry": 535.7,
+   "shares": 300,
+   "stop": 522.3075,
+   "take": 562.4850000000001,
+   "risk": 4178
+  }
+ ],
+ "pending": [
+  {
+   "code": "7267",
+   "name": "ホンダ",
+   "sector": "自動車",
+   "score": 87.0
+  },
+  {
+   "code": "7203",
+   "name": "トヨタ自動車",
+   "sector": "自動車",
+   "score": 82.0
   }
  ],
  "realized": 3666.610000000015,

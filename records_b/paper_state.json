@@ -1,18 +1,49 @@
 {
- "last_date": "2026-11-13",
- "positions": [],
- "pending": [
+ "last_date": "2026-11-16",
+ "positions": [
   {
    "code": "4755",
    "name": "楽天G",
    "sector": "通信・IT",
-   "score": 78.9
+   "score": 78.9,
+   "entry_date": "2026-11-16",
+   "entry": 647.0,
+   "shares": 200,
+   "stop": 630.8249999999999,
+   "take": 679.35,
+   "risk": 3364
+  }
+ ],
+ "pending": [
+  {
+   "code": "9434",
+   "name": "ソフトバンク",
+   "sector": "通信・IT",
+   "score": 79.0
   },
   {
-   "code": "8308",
-   "name": "りそなHD",
+   "code": "3407",
+   "name": "旭化成",
+   "sector": "資源・素材",
+   "score": 78.0
+  },
+  {
+   "code": "8316",
+   "name": "三井住友FG",
    "sector": "銀行",
-   "score": 77.4
+   "score": 77.2
+  },
+  {
+   "code": "9433",
+   "name": "KDDI",
+   "sector": "通信・IT",
+   "score": 77.2
+  },
+  {
+   "code": "1605",
+   "name": "INPEX",
+   "sector": "資源・素材",
+   "score": 77.2
   }
  ],
  "realized": 9731.639999999976,
