@@ -1,5 +1,5 @@
 {
- "last_date": "2026-11-16",
+ "last_date": "2026-11-17",
  "positions": [
   {
    "code": "4755",
@@ -12,38 +12,38 @@
    "stop": 630.8249999999999,
    "take": 679.35,
    "risk": 3364
-  }
- ],
- "pending": [
+  },
   {
    "code": "9434",
    "name": "ソフトバンク",
    "sector": "通信・IT",
-   "score": 79.0
+   "score": 79.0,
+   "entry_date": "2026-11-17",
+   "entry": 246.0,
+   "shares": 700,
+   "stop": 239.85,
+   "take": 258.3,
+   "risk": 4477
+  }
+ ],
+ "pending": [
+  {
+   "code": "7182",
+   "name": "ゆうちょ銀行",
+   "sector": "銀行",
+   "score": 80.8
+  },
+  {
+   "code": "7272",
+   "name": "ヤマハ発動機",
+   "sector": "自動車",
+   "score": 80.5
   },
   {
    "code": "3407",
    "name": "旭化成",
    "sector": "資源・素材",
-   "score": 78.0
-  },
-  {
-   "code": "8316",
-   "name": "三井住友FG",
-   "sector": "銀行",
-   "score": 77.2
-  },
-  {
-   "code": "9433",
-   "name": "KDDI",
-   "sector": "通信・IT",
-   "score": 77.2
-  },
-  {
-   "code": "1605",
-   "name": "INPEX",
-   "sector": "資源・素材",
-   "score": 77.2
+   "score": 79.8
   }
  ],
  "realized": 9731.639999999976,
