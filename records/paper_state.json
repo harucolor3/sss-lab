@@ -1,18 +1,6 @@
 {
- "last_date": "2026-11-17",
+ "last_date": "2026-11-18",
  "positions": [
-  {
-   "code": "4689",
-   "name": "LINEヤフー",
-   "sector": "通信・IT",
-   "score": 76.0,
-   "entry_date": "2026-11-16",
-   "entry": 535.7,
-   "shares": 300,
-   "stop": 522.3075,
-   "take": 562.4850000000001,
-   "risk": 4178
-  },
   {
    "code": "7267",
    "name": "ホンダ",
@@ -28,33 +16,75 @@
  ],
  "pending": [
   {
+   "code": "5401",
+   "name": "日本製鉄",
+   "sector": "資源・素材",
+   "score": 92.0
+  },
+  {
    "code": "7261",
    "name": "マツダ",
    "sector": "自動車",
    "score": 87.0
   },
   {
-   "code": "7269",
-   "name": "スズキ",
-   "sector": "自動車",
-   "score": 85.0
+   "code": "8601",
+   "name": "大和証券G",
+   "sector": "証券・保険",
+   "score": 87.0
   },
   {
-   "code": "8002",
-   "name": "丸紅",
-   "sector": "商社",
-   "score": 82.0
+   "code": "5411",
+   "name": "JFE HD",
+   "sector": "資源・素材",
+   "score": 87.0
+  },
+  {
+   "code": "8604",
+   "name": "野村HD",
+   "sector": "証券・保険",
+   "score": 85.0
   },
   {
    "code": "8058",
    "name": "三菱商事",
    "sector": "商社",
+   "score": 85.0
+  },
+  {
+   "code": "8750",
+   "name": "第一生命HD",
+   "sector": "証券・保険",
+   "score": 84.0
+  },
+  {
+   "code": "7203",
+   "name": "トヨタ自動車",
+   "sector": "自動車",
    "score": 82.0
+  },
+  {
+   "code": "7269",
+   "name": "スズキ",
+   "sector": "自動車",
+   "score": 82.0
+  },
+  {
+   "code": "8001",
+   "name": "伊藤忠",
+   "sector": "商社",
+   "score": 81.0
+  },
+  {
+   "code": "1801",
+   "name": "大成建設",
+   "sector": "運輸・不動産",
+   "score": 79.0
   }
  ],
- "realized": 3666.610000000015,
+ "realized": -2044.099999999985,
  "month": "2026-11",
- "month_pnl": 15639.519999999999,
+ "month_pnl": 9928.809999999998,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"

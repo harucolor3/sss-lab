@@ -1,18 +1,6 @@
 {
- "last_date": "2026-11-17",
+ "last_date": "2026-11-18",
  "positions": [
-  {
-   "code": "4755",
-   "name": "楽天G",
-   "sector": "通信・IT",
-   "score": 78.9,
-   "entry_date": "2026-11-16",
-   "entry": 647.0,
-   "shares": 200,
-   "stop": 630.8249999999999,
-   "take": 679.35,
-   "risk": 3364
-  },
   {
    "code": "9434",
    "name": "ソフトバンク",
@@ -31,24 +19,42 @@
    "code": "7182",
    "name": "ゆうちょ銀行",
    "sector": "銀行",
-   "score": 80.8
+   "score": 88.8
+  },
+  {
+   "code": "8411",
+   "name": "みずほFG",
+   "sector": "銀行",
+   "score": 88.8
+  },
+  {
+   "code": "8316",
+   "name": "三井住友FG",
+   "sector": "銀行",
+   "score": 81.6
+  },
+  {
+   "code": "8306",
+   "name": "三菱UFJ",
+   "sector": "銀行",
+   "score": 81.1
+  },
+  {
+   "code": "8308",
+   "name": "りそなHD",
+   "sector": "銀行",
+   "score": 81.1
   },
   {
    "code": "7272",
    "name": "ヤマハ発動機",
    "sector": "自動車",
-   "score": 80.5
-  },
-  {
-   "code": "3407",
-   "name": "旭化成",
-   "sector": "資源・素材",
-   "score": 79.8
+   "score": 78.9
   }
  ],
- "realized": 9731.639999999976,
+ "realized": 3182.2399999999716,
  "month": "2026-11",
- "month_pnl": 19277.899999999994,
+ "month_pnl": 12728.499999999989,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"
