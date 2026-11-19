@@ -1,5 +1,5 @@
 {
- "last_date": "2026-11-18",
+ "last_date": "2026-11-19",
  "positions": [
   {
    "code": "9434",
@@ -16,45 +16,51 @@
  ],
  "pending": [
   {
-   "code": "7182",
-   "name": "ゆうちょ銀行",
-   "sector": "銀行",
-   "score": 88.8
+   "code": "1801",
+   "name": "大成建設",
+   "sector": "運輸・不動産",
+   "score": 82.5
   },
   {
-   "code": "8411",
-   "name": "みずほFG",
-   "sector": "銀行",
-   "score": 88.8
+   "code": "3407",
+   "name": "旭化成",
+   "sector": "資源・素材",
+   "score": 81.3
   },
   {
    "code": "8316",
    "name": "三井住友FG",
    "sector": "銀行",
-   "score": 81.6
-  },
-  {
-   "code": "8306",
-   "name": "三菱UFJ",
-   "sector": "銀行",
    "score": 81.1
   },
   {
-   "code": "8308",
-   "name": "りそなHD",
-   "sector": "銀行",
+   "code": "8750",
+   "name": "第一生命HD",
+   "sector": "証券・保険",
    "score": 81.1
   },
   {
-   "code": "7272",
-   "name": "ヤマハ発動機",
+   "code": "7182",
+   "name": "ゆうちょ銀行",
+   "sector": "銀行",
+   "score": 80.8
+  },
+  {
+   "code": "7201",
+   "name": "日産自動車",
    "sector": "自動車",
-   "score": 78.9
+   "score": 80.4
+  },
+  {
+   "code": "9432",
+   "name": "NTT",
+   "sector": "通信・IT",
+   "score": 79.3
   }
  ],
- "realized": 3182.2399999999716,
+ "realized": -1561.4600000000237,
  "month": "2026-11",
- "month_pnl": 12728.499999999989,
+ "month_pnl": 7984.799999999994,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"

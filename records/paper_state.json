@@ -1,37 +1,31 @@
 {
- "last_date": "2026-11-18",
+ "last_date": "2026-11-19",
  "positions": [
-  {
-   "code": "7267",
-   "name": "ホンダ",
-   "sector": "自動車",
-   "score": 87.0,
-   "entry_date": "2026-11-17",
-   "entry": 1835.0,
-   "shares": 100,
-   "stop": 1789.125,
-   "take": 1926.75,
-   "risk": 4771
-  }
- ],
- "pending": [
   {
    "code": "5401",
    "name": "日本製鉄",
    "sector": "資源・素材",
-   "score": 92.0
-  },
+   "score": 92.0,
+   "entry_date": "2026-11-19",
+   "entry": 687.0,
+   "shares": 200,
+   "stop": 669.8249999999999,
+   "take": 721.35,
+   "risk": 3572
+  }
+ ],
+ "pending": [
   {
-   "code": "7261",
-   "name": "マツダ",
-   "sector": "自動車",
-   "score": 87.0
-  },
-  {
-   "code": "8601",
-   "name": "大和証券G",
+   "code": "8604",
+   "name": "野村HD",
    "sector": "証券・保険",
-   "score": 87.0
+   "score": 90.0
+  },
+  {
+   "code": "8766",
+   "name": "東京海上HD",
+   "sector": "証券・保険",
+   "score": 90.0
   },
   {
    "code": "5411",
@@ -40,51 +34,57 @@
    "score": 87.0
   },
   {
-   "code": "8604",
-   "name": "野村HD",
-   "sector": "証券・保険",
-   "score": 85.0
-  },
-  {
-   "code": "8058",
-   "name": "三菱商事",
-   "sector": "商社",
-   "score": 85.0
-  },
-  {
-   "code": "8750",
-   "name": "第一生命HD",
+   "code": "8630",
+   "name": "SOMPO",
    "sector": "証券・保険",
    "score": 84.0
-  },
-  {
-   "code": "7203",
-   "name": "トヨタ自動車",
-   "sector": "自動車",
-   "score": 82.0
-  },
-  {
-   "code": "7269",
-   "name": "スズキ",
-   "sector": "自動車",
-   "score": 82.0
   },
   {
    "code": "8001",
    "name": "伊藤忠",
    "sector": "商社",
+   "score": 84.0
+  },
+  {
+   "code": "8725",
+   "name": "MS&AD",
+   "sector": "証券・保険",
+   "score": 84.0
+  },
+  {
+   "code": "7261",
+   "name": "マツダ",
+   "sector": "自動車",
+   "score": 82.0
+  },
+  {
+   "code": "8267",
+   "name": "イオン",
+   "sector": "医薬・消費",
+   "score": 82.0
+  },
+  {
+   "code": "7267",
+   "name": "ホンダ",
+   "sector": "自動車",
    "score": 81.0
   },
   {
-   "code": "1801",
-   "name": "大成建設",
+   "code": "8601",
+   "name": "大和証券G",
+   "sector": "証券・保険",
+   "score": 81.0
+  },
+  {
+   "code": "1812",
+   "name": "鹿島建設",
    "sector": "運輸・不動産",
    "score": 79.0
   }
  ],
- "realized": -2044.099999999985,
+ "realized": -6815.099999999985,
  "month": "2026-11",
- "month_pnl": 9928.809999999998,
+ "month_pnl": 5157.809999999998,
  "pause_day": false,
  "pause_month": null,
  "start_date": "2026-09-28"
